@@ -1,12 +1,17 @@
-var var Backbone = require('backbone');
+var Backbone = require('backbone');
 var React = require('react');
 var ReactDOM = require('react-dom');
+
+var parse = require('./utilities/parse');
+var HomeContainer = require('./components/splash.jsx').HomeContainer;
+var LoginContainer = require('./components/login.jsx').LoginContainer;
+var User = require('./models/user').User;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'home',
     'home': 'home',
-    'login': 'login',
+    'modal1': 'login',
     'habits/:id': 'habits',
     'habitdetail/:id': 'habitdetail',
     'profile/:id': 'profile'

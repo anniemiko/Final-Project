@@ -1,7 +1,6 @@
 var React = require('react');
 var Backbone = require('backbone');
 
-var BaseLayout = require('./base-layout.jsx').BaseLayout;
 var User = require('../models/user').User;
 
 class SignupContainer extends React.Component {
@@ -15,7 +14,7 @@ class SignupContainer extends React.Component {
   }
   render(){
     return (
-      <div id="modal1" class="modal">
+      <div id="modal2" className="modal">
         <h1>Sign Up</h1>
         <SignupForm action={this.createAccount} SubmitBtn="Create Account"/>
       </div>
@@ -48,7 +47,7 @@ class SignupForm extends React.Component {
   render(){
     return(
       <div>
-        <div class="modal-content">
+        <div className="modal-content">
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">What would you like your username to be?</label>
@@ -63,10 +62,10 @@ class SignupForm extends React.Component {
             <input className="btn btn-primary" type="submit" value={this.props.SubmitBtn}/>
           </form>
         </div>
-        <div class="modal-footer">
-          <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sign Up</a>
+        <div className="modal-footer">
+          <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Sign Up</a>
         </div>
-    </div>    
+    </div>
     )
   }
 };

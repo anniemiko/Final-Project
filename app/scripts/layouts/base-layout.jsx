@@ -9,7 +9,7 @@ function BaseLayout(props){
         <div className="header">
           <img src="#" alt="" className="logo"/>
           <h2>Cramazing Habit App Name</h2>
-          <a class="waves-effect waves-light btn" href="#modal1">Login</a>
+          <a class="waves-effect waves-light btn" href="#modal1">Login</a> {/* turns into Logout link when user is logged in...*/}
         </div>
 
             {props.children}

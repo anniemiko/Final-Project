@@ -5,17 +5,19 @@ var parse = require('../utilities/parse');
 
 var User = Backbone.Model.extend({
   idAttribute: 'objectId',
-  urlRoot: function(){
-    return parse.base_url + '/users';
-    }
+  urlRoot: 'https://brand-new-app.herokuapp.com/users'
   }, {
     login: function(creds, callback){
-      var url = parse.base_url + '/login?' + $.param(creds);
+      var url = 'https://brand-new-app.herokuapp.com//login?' + $.param(creds);
+      parse.parse.initialize();
+
       $.get(url).then(data => {
         var newUser = new User(data);
         User.store(newUser);
         callback(newUser);
       });
+
+        parse.parse.deinitialize();
     },
     signup: function(creds, callback){
       var newUser = new User(creds);

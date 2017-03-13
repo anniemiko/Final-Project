@@ -31,13 +31,15 @@ var parse = {
         xhr.setRequestHeader("X-Parse-Application-Id", null);
         xhr.setRequestHeader("X-Parse-REST-API-Key", null);
         xhr.setRequestHeader("X-Parse-Session-Token", null);
+      }
+    })
   }
 }
 
 var ParseModel = Backbone.Model.extend({
   idAttribute: 'objectId',
   sync: function(){
-    var User = require('./models/user').User;
+    var User = require('../models/user').User;
     var user = User.current();
 
     if(user){

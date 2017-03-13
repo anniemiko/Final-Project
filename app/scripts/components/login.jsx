@@ -1,10 +1,6 @@
 var React = require('react');
-var User = require('../models/user.js').User;
-
-var React = require('react');
 var Backbone = require('backbone');
 
-var BaseLayout = require('./base-layout.jsx').BaseLayout;
 var User = require('../models/user').User;
 
 class LoginContainer extends React.Component {
@@ -19,13 +15,13 @@ class LoginContainer extends React.Component {
   }
   render(){
     return (
-      <div id="modal1" class="modal">
+      <div id="modal1" className="modal">
         <h1>Login</h1>
         <LoginForm action={this.login} SubmitBtn="Login"/>
       </div>
     )
   }
-};
+}
 
 class LoginForm extends React.Component {
   constructor(props){
@@ -50,13 +46,13 @@ class LoginForm extends React.Component {
       this.props.action(this.state);
   }
   render(){
-    return(
+    return (
       <div>
-        <div class="modal-content">
+        <div className="modal-content">
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <input onChange={this.handleUsernameChange} className="form-control" name="username" id="username" type="text" placeholder="Enter email here" />
+              <input onChange={this.handleUsernameChange} className="form-control" name="username" id="username" type="text" placeholder="Enter username here" />
             </div>
 
             <div className="form-group">
@@ -66,14 +62,16 @@ class LoginForm extends React.Component {
 
             <input className="btn btn-primary" type="submit" value={this.props.SubmitBtn}/>
           </form>
-          <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Log In</a>
+
+          <div className="modal-footer">
+            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Log In</a>
           </div>
-      </div>    
+        </div>
+      </div>
     )
   }
 };
 
 module.exports = {
   LoginContainer
-}
+};
