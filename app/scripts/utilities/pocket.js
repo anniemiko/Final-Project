@@ -9,4 +9,4 @@ var ajaxSetUp = function setupAjax(){
   });
 }
 
-module.exports = ajaxSetUp
+module.exports = ajaxSetUp;
