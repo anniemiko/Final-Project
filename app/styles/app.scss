@@ -15,3 +15,37 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 img {
   max-width: 100%;
 }
+
+nav a{
+  color: blue;
+  float: right;
+  display: inline-block;
+}
+nav h4{
+  color: lightgrey;
+  display: inline-block;
+}
+
+.banner{
+  background-image: url('../images/lavender-trees.jpg');
+}
+
+h1{
+  color: white;
+  font-size: 50px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+h5{
+  color: white;
+  text-align: center;
+}
+
+#signup-button{
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  padding: 7px;
+  left: 200px;
+}

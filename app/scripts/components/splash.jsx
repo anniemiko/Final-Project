@@ -6,11 +6,11 @@ class HomeContainer extends React.Component{
       <div>
         <nav className="white" role="navigation">
           <div className="nav-wrapper container">
-            <h1>Logo</h1>
+            <h4>Logo</h4>
             <a className="right waves-effect waves-light btn" href="#modal1">Log In</a>
           </div>
         </nav>
-        <div className="container">
+        <div className="container banner">
           <br></br>
           <h1 className="header center">Super Amazing Habit Forming App</h1>
           <div className="row center">
