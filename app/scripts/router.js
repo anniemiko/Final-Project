@@ -6,17 +6,19 @@ var parse = require('./utilities/parse');
 var HomeContainer = require('./components/splash.jsx').HomeContainer;
 var LoginContainer = require('./components/login.jsx').LoginContainer;
 var User = require('./models/user').User;
+var HabitContainer = require('./components/habits.jsx').HabitContainer;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
-    '': 'home',
-    'home': 'home',
+    '': 'index',
+    'home': 'index',
     'modal1': 'login',
-    'habits/:id': 'habits',
+    'habits': 'habits',
     'habitdetail/:id': 'habitdetail',
     'profile/:id': 'profile'
   },
-  home: function(){
+  index: function(){
+    // console.log('testing');
     ReactDOM.render(
       React.createElement(HomeContainer),
       document.getElementById('app')
@@ -25,6 +27,12 @@ var AppRouter = Backbone.Router.extend({
   login: function(){
     ReactDOM.render(
       React.createElement(LoginContainer),
+      document.getElementById('app')
+    )
+  },
+  habits: function(id){
+    ReactDOM.render(
+      React.createElement(HabitContainer, {id: id}),
       document.getElementById('app')
     )
   },

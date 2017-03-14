@@ -10,6 +10,7 @@ var Backbone = require('backbone');
 var parse = {
   base_url: '',
   initialize: function(config){
+    config = config || {};
     if(config.base_url){
       this.base_url = config.base_url;
     }
@@ -48,7 +49,7 @@ var ParseModel = Backbone.Model.extend({
       parse.initialize();
     }
 
-    var xhr = Backbone.model.prototype.sync.apply(this, arguments);
+    var xhr = Backbone.Model.prototype.sync.apply(this, arguments);
 
     parse.deinitialize();
 

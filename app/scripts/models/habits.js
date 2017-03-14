@@ -1,13 +1,20 @@
-var Backbone = require('backbone'):
+var Backbone = require('backbone');
+var ParseModel = require('../utilities/parse.js').ParseModel;
+var ParseCollection = require('../utilities/parse.js').ParseCollection;
 
-var Habits = Backbone.Models.extend({
+var Habit = ParseModel.extend({
   defaults:{
-    'name':
-  }
-
+    'habit': 'habit'
+  },
+  urlRoot: 'https://brand-new-app.herokuapp.com/classes/Habits'
 });
 
-var HabitCollection = Backbone.Collection.extend({
-  model: Habits,
-  url: 'http://tiny-parse-server.herokuapp.com/classes/Baty'
+var HabitCollection = ParseCollection.extend({
+  model: Habit,
+  baseUrl: 'https://brand-new-app.herokuapp.com/classes/Habits'
 })
+
+module.exports = {
+  Habit,
+  HabitCollection
+}

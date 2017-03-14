@@ -1,21 +1,25 @@
 var React = require('react');
 var Backbone = require('backbone');
+var $ = window.jQuery = require('jquery');
+var Materialize = require('materialize-css');
+
+var MaterializeModal = require('./materialize.jsx').MaterializeModal;
 
 var User = require('../models/user').User;
 
-class LoginContainer extends React.Component {
+class LoginContainer extends MaterializeModal {
   constructor(props){
     super(props);
     this.login = this.login.bind(this);
   }
   login(creds){
     User.login(creds, function(user){
-      Backbone.history.navigate('main/', {trigger: true});
+      Backbone.history.navigate('habits', {trigger: true});
     });
   }
   render(){
     return (
-      <div id="modal1" className="modal">
+      <div className="modal" ref={(modal) => {this.modal = modal; }}>
         <h1>Login</h1>
         <LoginForm action={this.login} SubmitBtn="Login"/>
       </div>
@@ -60,12 +64,8 @@ class LoginForm extends React.Component {
               <input onChange={this.handlePasswordChange} className="form-control" name="password" id="password" type="text" placeholder="Password please" />
             </div>
 
-            <input className="btn btn-primary" type="submit" value={this.props.SubmitBtn}/>
+            <input className="btn btn-primary modal-action modal-close" type="submit" value={this.props.SubmitBtn}/>
           </form>
-
-          <div className="modal-footer">
-            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Log In</a>
-          </div>
         </div>
       </div>
     )

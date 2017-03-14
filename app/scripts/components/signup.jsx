@@ -1,20 +1,24 @@
 var React = require('react');
 var Backbone = require('backbone');
+var $ = window.jQuery = require('jquery');
+var Materialize = require('materialize-css');
+
+var MaterializeModal = require('./materialize.jsx').MaterializeModal;
 
 var User = require('../models/user').User;
 
-class SignupContainer extends React.Component {
+class SignupContainer extends MaterializeModal {
   constructor(props){
     super(props);
-    this.signup = this.login.bind(this);
+    this.createAccount = this.createAccount.bind(this);
   }
   createAccount(creds){
     User.signup(creds);
-    Backbone.history.navigate('main/', {trigger: true});
+    Backbone.history.navigate('habits', {trigger: true});
   }
   render(){
     return (
-      <div id="modal2" className="modal">
+      <div className="modal" ref={(modal) => {this.modal = modal; }}>
         <h1>Sign Up</h1>
         <SignupForm action={this.createAccount} SubmitBtn="Create Account"/>
       </div>
@@ -59,11 +63,8 @@ class SignupForm extends React.Component {
               <input onChange={this.handlePasswordChange} className="form-control" name="password" id="password" type="text" placeholder="Enter password here" />
             </div>
 
-            <input className="btn btn-primary" type="submit" value={this.props.SubmitBtn}/>
+            <input className="btn btn-primary modal-action modal-close" type="submit" value={this.props.SubmitBtn}/>
           </form>
-        </div>
-        <div className="modal-footer">
-          <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Sign Up</a>
         </div>
     </div>
     )

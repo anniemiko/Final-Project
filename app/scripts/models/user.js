@@ -1,15 +1,16 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
+// Backbone.$ = $;
 
-var parse = require('../utilities/parse');
+var parse = require('../utilities/parse').parse;
 
 var User = Backbone.Model.extend({
   idAttribute: 'objectId',
   urlRoot: 'https://brand-new-app.herokuapp.com/users'
   }, {
     login: function(creds, callback){
-      var url = 'https://brand-new-app.herokuapp.com//login?' + $.param(creds);
-      parse.parse.initialize();
+      var url = 'https://brand-new-app.herokuapp.com/login?' + $.param(creds);
+      parse.initialize();
 
       $.get(url).then(data => {
         var newUser = new User(data);
@@ -17,14 +18,17 @@ var User = Backbone.Model.extend({
         callback(newUser);
       });
 
-        parse.parse.deinitialize();
+        parse.deinitialize();
     },
     signup: function(creds, callback){
+      parse.initialize();
+
       var newUser = new User(creds);
       newUser.save().then(() => {
         User.store(newUser);
         callback(newUser);
       });
+      parse.deinitialize();
     },
     store: function(user){
       localStorage.setItem('user', JSON.stringify(user));
