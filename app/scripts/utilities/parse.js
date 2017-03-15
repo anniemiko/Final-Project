@@ -76,6 +76,22 @@ var ParseModel = Backbone.Model.extend({
 
 var ParseCollection = Backbone.Collection.extend({
   whereClause: {},
+  sync: function(){
+    var User = require('../models/user').User;
+    var user = User.current();
+
+    if(user){
+      parse.initialize({sessionId: user.get('sessionToken')});
+    }else{
+      parse.initialize();
+    }
+
+    var xhr = Backbone.Collection.prototype.sync.apply(this, arguments);
+
+    parse.deinitialize();
+
+    return xhr;
+  },
   parseWhere: function(field, value, objectId){
     if(objectId){
       value = {
@@ -104,8 +120,15 @@ var ParseCollection = Backbone.Collection.extend({
   }
 });
 
+var ParseFile = ParseModel.extend({
+  urlRoot: function(){
+    return 'https://brand-new-app.herokuapp.com/files/' + this.get('name');
+  }
+})
+
 module.exports = {
   parse,
   ParseModel,
-  ParseCollection
+  ParseCollection,
+  ParseFile
 }

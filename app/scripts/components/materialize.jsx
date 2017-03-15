@@ -8,7 +8,9 @@ class MaterializeModal extends React.Component {
     this.close = this.close.bind(this);
   }
   componentDidMount(){
-    $(this.modal).modal();
+    $(this.modal).modal({
+      dismissible: true
+    });
 
     if(this.props.show){
       this.open()

@@ -7,12 +7,12 @@ var HomeContainer = require('./components/splash.jsx').HomeContainer;
 var LoginContainer = require('./components/login.jsx').LoginContainer;
 var User = require('./models/user').User;
 var HabitContainer = require('./components/habits.jsx').HabitContainer;
+var HabitDetailContainer = require('./components/habitDetail.jsx').HabitDetailContainer;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
     'home': 'index',
-    'modal1': 'login',
     'habits': 'habits',
     'habitdetail/:id': 'habitdetail',
     'profile/:id': 'profile'
@@ -24,15 +24,15 @@ var AppRouter = Backbone.Router.extend({
       document.getElementById('app')
     )
   },
-  login: function(){
-    ReactDOM.render(
-      React.createElement(LoginContainer),
-      document.getElementById('app')
-    )
-  },
   habits: function(id){
     ReactDOM.render(
       React.createElement(HabitContainer, {id: id}),
+      document.getElementById('app')
+    )
+  },
+  habitdetail: function(id){
+    ReactDOM.render(
+      React.createElement(HabitDetailContainer, {id: id}),
       document.getElementById('app')
     )
   },

@@ -22,6 +22,7 @@ class AddHabitContainer extends MaterializeModal {
 
       habit.set({
         'description': formData.habit,
+        'motivation': formData.motivation
       });
 
       habit.setPointer('owner', '_User', user.get('objectId'));
@@ -43,6 +44,7 @@ class AddHabitForm extends React.Component {
   constructor(props){
     super(props);
     this.handleHabitChange = this.handleHabitChange.bind(this);
+    this.handleMotivationChange = this.handleMotivationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       habit: ''
@@ -50,6 +52,9 @@ class AddHabitForm extends React.Component {
   }
   handleHabitChange(e){
     this.setState({habit: e.target.value})
+  }
+  handleMotivationChange(e){
+    this.setState({motivation: e.target.value})
   }
   handleSubmit(e){
       e.preventDefault();
@@ -62,6 +67,10 @@ class AddHabitForm extends React.Component {
           <div className="form-group">
             <label htmlFor="habit">What habit would you like to start or quit?</label>
             <input onChange={this.handleHabitChange} type='text' className="form-control" name="habit" placeholder="habit description"/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="motivator">Why do you want to do this? What is your motivation for making this change?</label>
+            <input onChange={this.handleMotivationChange} type='textarea' className="form-control" name="motivator" placeholder="habit motivation"/>
           </div>
           <input className="btn btn-primary modal-action modal-close" type="submit" value={this.props.SubmitBtn}/>
         </form>

@@ -26,7 +26,7 @@ var User = Backbone.Model.extend({
       var newUser = new User(creds);
       newUser.save().then(() => {
         User.store(newUser);
-        callback(newUser);
+        // callback(newUser);
       });
       parse.deinitialize();
     },

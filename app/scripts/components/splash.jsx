@@ -28,14 +28,14 @@ class HomeContainer extends React.Component{
             <a onClick={this.toggleLogin} className="right waves-effect waves-light btn">Log In</a>
           </div>
         </nav>
-        <div className="container banner">
+        <div className="container banner valign-wrapper">
           <br></br>
           <h1 className="header center">Super Amazing Habit Forming App</h1>
           <div className="row center">
             <h5>An app to help you live a productive and happy life</h5>
           </div>
           <div className="row center">
-            <a onClick={this.toggleSignup} id="signup-button" className="btn-large center waves-effect waves-light teal">Sign Me Up!</a>
+            <a onClick={this.toggleSignup} id="signup-button" className="btn-large waves-effect waves-light teal">Sign Me Up!</a>
           </div>
           <br></br>
         </div>

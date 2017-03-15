@@ -5,6 +5,8 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 // Import Bootstrap
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
+// Import Materialize
+// @import '../../node_modules/materialize-css/sass/materialze.scss';
 
 *,
 *::before,
@@ -16,6 +18,11 @@ img {
   max-width: 100%;
 }
 
+body {
+  background-color: #2EDFEA;
+}
+
+// ** styling for splash page ** //
 nav a{
   color: blue;
   float: right;
@@ -48,3 +55,11 @@ h5{
   border-radius: 5px;
   padding: 7px;
 }
+
+// ** styling for habits page ** //
+
+h3 {
+  color: white;
+}
+
+// ** styling for modals ** //

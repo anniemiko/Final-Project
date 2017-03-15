@@ -4,7 +4,7 @@ var $ = window.jQuery = require('jquery');
 var Materialize = require('materialize-css');
 
 var MaterializeModal = require('./materialize.jsx').MaterializeModal;
-
+var ParseFile = require('../utilities/parse.js').ParseFile;
 var User = require('../models/user').User;
 
 class SignupContainer extends MaterializeModal {
@@ -19,7 +19,6 @@ class SignupContainer extends MaterializeModal {
   render(){
     return (
       <div className="modal" ref={(modal) => {this.modal = modal; }}>
-        <h1>Sign Up</h1>
         <SignupForm action={this.createAccount} SubmitBtn="Create Account"/>
       </div>
     )
@@ -31,11 +30,13 @@ class SignupForm extends React.Component {
     super(props);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handlePicChange = this.handlePicChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      pic: null
     };
   }
   handleUsernameChange(e){
@@ -44,15 +45,43 @@ class SignupForm extends React.Component {
   handlePasswordChange(e){
     this.setState({password: e.target.value})
   }
+  handlePicChange(e){
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.onloadend = ()=>{
+      this.setState({preview: reader.result});
+    }
+    reader.readAsDataURL(file);
+
+    this.setState({pic: file});
+  }
   handleSubmit(e){
       e.preventDefault();
+      var pic = this.state.pic;
+      var fileUpload = new ParseFile(pic);
+      fileUpload.save({}, {
+        data: pic
+      }).then((response)=>{
+        var imageUrl = response.url;
+        var user = User.current()
+        user.set({
+          pic: {
+            url: imageUrl
+          }
+        });
+        user.save().then(function(){
+          console.log(user);
+          // Backbone.history.navigate('detail/', {trigger: true});
+        })
+      })
       this.props.action(this.state);
   }
   render(){
     return(
       <div>
-        <div className="modal-content">
-          <form onSubmit={this.handleSubmit}>
+        <div className="modal-content container">
+          <h4>Create an account</h4>
+          <form onSubmit={this.handleSubmit} encType="multipart/form-data">
             <div className="form-group">
               <label htmlFor="username">What would you like your username to be?</label>
               <input onChange={this.handleUsernameChange} className="form-control" name="username" id="username" type="text" placeholder="Enter username here" />
@@ -61,6 +90,12 @@ class SignupForm extends React.Component {
             <div className="form-group">
               <label htmlFor="password">Create password</label>
               <input onChange={this.handlePasswordChange} className="form-control" name="password" id="password" type="text" placeholder="Enter password here" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="username">Upload a profile pic:</label>
+                <input onChange={this.handlePicChange} type="file"/>
+                <img src={this.state.preview} />
             </div>
 
             <input className="btn btn-primary modal-action modal-close" type="submit" value={this.props.SubmitBtn}/>

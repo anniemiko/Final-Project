@@ -20,7 +20,6 @@ class LoginContainer extends MaterializeModal {
   render(){
     return (
       <div className="modal" ref={(modal) => {this.modal = modal; }}>
-        <h1>Login</h1>
         <LoginForm action={this.login} SubmitBtn="Login"/>
       </div>
     )
@@ -52,7 +51,8 @@ class LoginForm extends React.Component {
   render(){
     return (
       <div>
-        <div className="modal-content">
+        <div className="modal-content container">
+          <h4>Login</h4>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
