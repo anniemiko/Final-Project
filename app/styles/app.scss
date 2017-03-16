@@ -3,10 +3,10 @@
 $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 
 // Import Bootstrap
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+// @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
 // Import Materialize
-// @import '../../node_modules/materialize-css/sass/materialze.scss';
+@import '../../node_modules/materialize-sass/sass/materialize.scss';
 
 *,
 *::before,
@@ -35,6 +35,7 @@ nav h4{
 
 .banner{
   background-image: url('../images/lavender-trees.jpg');
+  background-size: cover;
 }
 
 h1{
@@ -47,13 +48,6 @@ h1{
 h5{
   color: white;
   text-align: center;
-}
-
-#signup-button{
-  background-color: green;
-  color: white;
-  border-radius: 5px;
-  padding: 7px;
 }
 
 // ** styling for habits page ** //
@@ -69,3 +63,8 @@ img {
 }
 
 // ** styling for modals ** //
+
+label {
+  font-size: 16px;
+  
+}

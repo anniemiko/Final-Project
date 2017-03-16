@@ -38,7 +38,7 @@ class SignupForm extends React.Component {
     this.state = {
       username: '',
       password: '',
-      pic: ''
+      pic: {}
     };
   }
   handleUsernameChange(e){
@@ -60,17 +60,20 @@ class SignupForm extends React.Component {
   handleSubmit(e){
       e.preventDefault();
       var pic = this.state.pic;
-      var fileUpload = new ParseFile(pic);
-      fileUpload.save({}, {
-        data: pic
-      }).then((response)=>{
-        var imageUrl = response.url;
-        var userData = $.extend({}, this.state);
-        delete userData.preview;
-        userData.pic = {url: response.url, name: pic.name};
-        this.props.action(userData);
-      })
-
+      if(pic.name){
+        var fileUpload = new ParseFile(pic);
+        fileUpload.save({}, {
+          data: pic
+        }).then((response)=>{
+          var imageUrl = response.url;
+          var userData = $.extend({}, this.state);
+          delete userData.preview;
+          userData.pic = {url: response.url, name: pic.name};
+          this.props.action(userData);
+        })
+      }else{
+        this.props.action(this.state);
+      }
   }
   render(){
     return(

@@ -73,7 +73,7 @@ class AddHabitForm extends React.Component {
           </div>
           <div className="form-group">
             <label htmlFor="motivator">Why do you want to do this? What is your motivation for making this change?</label>
-            <input onChange={this.handleMotivationChange} type='textarea' className="form-control" name="motivator" placeholder="habit motivation"/>
+            <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivator" placeholder="habit motivation"/>
           </div>
           <input className="btn btn-primary modal-action modal-close" type="submit" value={this.props.SubmitBtn}/>
         </form>

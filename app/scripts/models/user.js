@@ -6,8 +6,7 @@ var parse = require('../utilities/parse').parse;
 
 var User = Backbone.Model.extend({
   defaults: {
-    username: 'Cool Dude',
-    pic: '../../images/luffy-tn.png'
+    pic: {}
   },
   idAttribute: 'objectId',
   urlRoot: 'https://brand-new-app.herokuapp.com/users'

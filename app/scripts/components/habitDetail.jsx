@@ -25,16 +25,14 @@ class HabitDetailContainer extends React.Component{
     var habit = this.state.habit;
     var user = User.current();
     habit.set({
-      'description': formData.habit,
+      'description': formData.description,
       'motivation': formData.motivation
     });
 
     habit.setPointer('owner', '_User', user.get('objectId'));
 
     habit.save().then(()=>{
-      this.state = {
-        habit: habit
-      }
+      this.setState({habit: habit})
     });
   }
   render(){
@@ -52,6 +50,7 @@ class HabitDetail extends React.Component {
   constructor(props){
     super(props)
     this.handleMotivationChange = this.handleMotivationChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
@@ -80,13 +79,13 @@ class HabitDetail extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="description">Your habit:</label>
-          <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.props.habit.get('description')} placeholder="Description"/>
+          <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description} placeholder="Description"/>
         </div>
         <div className="form-group">
           <label htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>
-          <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.props.habit.get('motivation')} placeholder="Motivation"/>
+          <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation} placeholder="Motivation"/>
         </div>
-          <input className="btn btn-warning" type="submit" value="Update Habit"/>
+          <input className="waves-effect btn orange" type="submit" value="Update Habit"/>
           <br></br>
           <a className="waves-effect waves-light btn" href={"#habits"}>Back to Habits Dashboard</a>
       </form>
