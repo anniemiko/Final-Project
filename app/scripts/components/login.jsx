@@ -35,7 +35,8 @@ class LoginForm extends React.Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      pic: ''
     };
   }
   handleUsernameChange(e){

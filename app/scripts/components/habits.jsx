@@ -23,8 +23,9 @@ class HabitContainer extends React.Component{
     <div className="container">
       <div className="col-md-12">
         <div className="user-profile">
-          <img src="{User.current().get('pic')}" alt=""/>
+          <img src={User.current().get('pic').url} alt={User.current().get('pic').name}/>
           <h3>{User.current().get('username')}</h3>
+          <h5 onClick={User.logout}>Logout</h5>
         </div>
         <HabitList collection={this.state.collection}/>
       </div>

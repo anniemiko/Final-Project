@@ -5,6 +5,10 @@ var Backbone = require('backbone');
 var parse = require('../utilities/parse').parse;
 
 var User = Backbone.Model.extend({
+  defaults: {
+    username: 'Cool Dude',
+    pic: '../../images/luffy-tn.png'
+  },
   idAttribute: 'objectId',
   urlRoot: 'https://brand-new-app.herokuapp.com/users'
   }, {
@@ -26,12 +30,16 @@ var User = Backbone.Model.extend({
       var newUser = new User(creds);
       newUser.save().then(() => {
         User.store(newUser);
-        // callback(newUser);
+        callback(newUser);
       });
       parse.deinitialize();
     },
     store: function(user){
       localStorage.setItem('user', JSON.stringify(user));
+    },
+    logout: function(user){
+      delete localStorage.user;
+      Backbone.history.navigate('home', {trigger: true});
     },
     current: function(){
       var user = localStorage.getItem('user');

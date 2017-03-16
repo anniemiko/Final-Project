@@ -39,7 +39,7 @@ class HomeContainer extends React.Component{
           </div>
           <br></br>
         </div>
-        <div className="col-md-12">
+        <div className="container">
           <div className="col-md-4">
             <h3>Focus on the Why</h3>
             <p></p>

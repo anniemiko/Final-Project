@@ -13,8 +13,10 @@ class SignupContainer extends MaterializeModal {
     this.createAccount = this.createAccount.bind(this);
   }
   createAccount(creds){
-    User.signup(creds);
-    Backbone.history.navigate('habits', {trigger: true});
+    User.signup(creds, function(){
+      Backbone.history.navigate('habits', {trigger: true});
+    });
+
   }
   render(){
     return (
@@ -36,7 +38,7 @@ class SignupForm extends React.Component {
     this.state = {
       username: '',
       password: '',
-      pic: null
+      pic: ''
     };
   }
   handleUsernameChange(e){
@@ -63,18 +65,12 @@ class SignupForm extends React.Component {
         data: pic
       }).then((response)=>{
         var imageUrl = response.url;
-        var user = User.current()
-        user.set({
-          pic: {
-            url: imageUrl
-          }
-        });
-        user.save().then(function(){
-          console.log(user);
-          // Backbone.history.navigate('detail/', {trigger: true});
-        })
+        var userData = $.extend({}, this.state);
+        delete userData.preview;
+        userData.pic = {url: response.url, name: pic.name};
+        this.props.action(userData);
       })
-      this.props.action(this.state);
+
   }
   render(){
     return(

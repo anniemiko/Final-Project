@@ -30,6 +30,9 @@ class AddHabitContainer extends MaterializeModal {
       habit.save().then(()=>{
         this.props.hide()
       });
+      this.state = {
+       habit
+      }
   }
   render(){
     return (
@@ -62,7 +65,7 @@ class AddHabitForm extends React.Component {
   }
   render(){
     return (
-      <div className="modal-content">
+      <div className="modal-content container">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="habit">What habit would you like to start or quit?</label>

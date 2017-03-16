@@ -32,14 +32,16 @@ class HabitDetailContainer extends React.Component{
     habit.setPointer('owner', '_User', user.get('objectId'));
 
     habit.save().then(()=>{
-      console.log(habit);
+      this.state = {
+        habit: habit
+      }
     });
   }
   render(){
     var habit = this.state.habit;
     return (
       <div className="container">
-        <h2>{habit.get('description')}</h2>
+        <h2>Habit details</h2>
         <HabitDetail saveHabit={this.saveHabit} habit={this.state.habit}/>
       </div>
     )
@@ -63,6 +65,9 @@ class HabitDetail extends React.Component {
       motivation: newProps.habit.get('motivation')
     })
   }
+  handleDescriptionChange(e){
+    this.setState({description: e.target.value})
+  }
   handleMotivationChange(e){
     this.setState({motivation: e.target.value})
   }
@@ -74,9 +79,13 @@ class HabitDetail extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
+          <label htmlFor="description">Your habit:</label>
+          <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.props.habit.get('description')} placeholder="Description"/>
+        </div>
+        <div className="form-group">
           <label htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>
           <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.props.habit.get('motivation')} placeholder="Motivation"/>
-          </div>
+        </div>
           <input className="btn btn-warning" type="submit" value="Update Habit"/>
           <br></br>
           <a className="waves-effect waves-light btn" href={"#habits"}>Back to Habits Dashboard</a>
