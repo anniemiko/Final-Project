@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
   render(){
     return (
       <div>
-        <div className="modal-content container">
+        <div className="modal-content">
           <a className="btn modal-action modal-close right">X</a>
           <h4>Login</h4>
           <form onSubmit={this.handleSubmit}>

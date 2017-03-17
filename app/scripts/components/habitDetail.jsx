@@ -77,13 +77,13 @@ class HabitDetail extends React.Component {
   render(){
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label className="habit-detail" htmlFor="description">Your habit:</label>
-          <input onChange={this.handleDescriptionChange} type='text' className="form-control habit-text" name="description" value={this.state.description} placeholder="Description"/>
+        <div className="form-group habit-detail">
+          <label htmlFor="description">Your habit:</label>
+          <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description} placeholder="Description"/>
         </div>
-        <div className="form-group">
-          <label className="habit-detail" htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>
-          <input onChange={this.handleMotivationChange} type='text' className="form-control habit-text" name="motivation" value={this.state.motivation} placeholder="Motivation"/>
+        <div className="form-group habit-detail">
+          <label htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>
+          <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation} placeholder="Motivation"/>
         </div>
           <input className="waves-effect btn orange" type="submit" value="Update Habit"/>
           <br></br>

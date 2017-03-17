@@ -43,11 +43,13 @@ h1{
   font-size: 70px;
   font-weight: bolder;
   text-align: center;
+  text-shadow: 2px 2px 5px #000;
 }
 
 h5{
   color: white;
   text-align: center;
+  text-shadow: 1px 1px 3px #000;
 }
 
 .habit-info{
@@ -65,14 +67,27 @@ img {
   height: 100px;
   resize: both;
 }
-// ** styling for habit detail page ** //
-.habit-detail {
-  color: white;
+
+.user-profile img{
+  display: inline-block;
+}
+.user-profile h3{
+  display: inline-block;
+  font-size: 30px;
+  padding-left: 15px;
 }
 
-.habit-text {
+// ** styling for habit detail page ** //
+.habit-detail label {
+  color: yellow;
   font-size: 18px;
 }
+
+.habit-detail {
+  color: white;
+  font-size: 18px;
+}
+
 // ** styling for modals ** //
 
 label {

@@ -25,7 +25,7 @@ class HabitContainer extends React.Component{
     this.setState({collection: this.state.collection});
   }
   render(){
-    var profilePic = User.current().get('pic').url || 'images/luffy-tn.png'
+    var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg'
     return (
     <div className="container">
       <div className="col-md-12">
