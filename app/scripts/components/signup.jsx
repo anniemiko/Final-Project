@@ -79,6 +79,7 @@ class SignupForm extends React.Component {
     return(
       <div>
         <div className="modal-content container">
+          <a className="btn modal-action modal-close right">X</a>
           <h4>Create an account</h4>
           <form onSubmit={this.handleSubmit} encType="multipart/form-data">
             <div className="form-group">

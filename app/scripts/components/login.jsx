@@ -53,6 +53,7 @@ class LoginForm extends React.Component {
     return (
       <div>
         <div className="modal-content container">
+          <a className="btn modal-action modal-close right">X</a>
           <h4>Login</h4>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">

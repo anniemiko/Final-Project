@@ -19,7 +19,7 @@ img {
 }
 
 body {
-  background-color: #2EDFEA;
+  background-color: #00838f;
 }
 
 // ** styling for splash page ** //
@@ -40,7 +40,7 @@ nav h4{
 
 h1{
   color: white;
-  font-size: 50px;
+  font-size: 70px;
   font-weight: bolder;
   text-align: center;
 }
@@ -48,6 +48,10 @@ h1{
 h5{
   color: white;
   text-align: center;
+}
+
+.habit-info{
+  color: white;
 }
 
 // ** styling for habits page ** //
@@ -61,10 +65,17 @@ img {
   height: 100px;
   resize: both;
 }
+// ** styling for habit detail page ** //
+.habit-detail {
+  color: white;
+}
 
+.habit-text {
+  font-size: 18px;
+}
 // ** styling for modals ** //
 
 label {
   font-size: 16px;
-  
+
 }
