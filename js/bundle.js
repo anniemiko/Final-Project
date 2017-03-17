@@ -67,7 +67,8 @@ class AddHabitForm extends React.Component {
   }
   render(){
     return (
-      React.createElement("div", {className: "modal-content container"}, 
+      React.createElement("div", {className: "modal-content"}, 
+        React.createElement("a", {className: "btn modal-action modal-close right"}, "X"), 
         React.createElement("form", {onSubmit: this.handleSubmit}, 
           React.createElement("div", {className: "form-group"}, 
             React.createElement("label", {htmlFor: "habit"}, "What habit would you like to start or quit?"), 
@@ -166,6 +167,9 @@ class HabitDetail extends React.Component {
     e.preventDefault();
     this.props.saveHabit(this.state);
   }
+  addPocket(e){
+
+  }
   render(){
     return (
       React.createElement("form", {onSubmit: this.handleSubmit}, 
@@ -179,6 +183,8 @@ class HabitDetail extends React.Component {
         ), 
           React.createElement("input", {className: "waves-effect btn orange", type: "submit", value: "Update Habit"}), 
           React.createElement("br", null), 
+            React.createElement("button", {onClick: this.addPocket, className: "waves-effect btn red"}, "Add Pocket links"), 
+            React.createElement("br", null), 
           React.createElement("a", {className: "waves-effect waves-light btn", href: "#habits"}, "Back to Habits Dashboard")
       )
     )
@@ -249,12 +255,18 @@ class HabitList extends React.Component{
   hideAddHabit(){
     this.setState({showAddHabit: false});
   }
+  checkHabit(){
+
+  }
   render(){
     var habitList = this.props.collection.map((habit)=>{
       return(
         React.createElement("li", {key: habit.cid, className: "collection-item valign"}, 
-          React.createElement("h4", {className: "left-align"}, habit.get('description')), 
-          React.createElement("a", {href: "#habitdetail/" + habit.get('objectId'), className: "btn waves-effect blue right-align"}, 
+          React.createElement("form", {action: "#"}, 
+            React.createElement("input", {onChange: this.checkHabit, type: "checkbox", className: "filled-in", id: "filled-in-box"}), 
+            React.createElement("label", {htmlFor: "filled-in-box", className: "left-align", id: "habit-text"}, habit.get('description'))
+          ), 
+          React.createElement("a", {href: "#habitdetail/" + habit.get('objectId'), className: "btn waves-effect blue"}, 
               "View Habit"
             ), 
             React.createElement("a", {onClick: (e)=>{e.preventDefault(); this.props.deleteHabit(habit)}, className: "btn waves-effect red secondary-content"}, "Delete Habit")
@@ -606,6 +618,7 @@ module.exports = {
 "use strict";
 var $ = require('jquery');
 var Backbone = require('backbone');
+// require('./utilities/pocket.js');
 
 require('./router');
 

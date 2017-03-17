@@ -7740,6 +7740,9 @@ img {
   font-size: 30px;
   padding-left: 15px; }
 
+#habit-text {
+  font-size: 22px; }
+
 .habit-detail label {
   color: yellow;
   font-size: 18px; }
