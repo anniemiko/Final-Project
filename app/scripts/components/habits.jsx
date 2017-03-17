@@ -56,12 +56,18 @@ class HabitList extends React.Component{
   hideAddHabit(){
     this.setState({showAddHabit: false});
   }
+  checkHabit(){
+
+  }
   render(){
     var habitList = this.props.collection.map((habit)=>{
       return(
         <li key={habit.cid} className="collection-item valign">
-          <h4 className="left-align">{habit.get('description')}</h4>
-          <a href={"#habitdetail/" + habit.get('objectId')} className="btn waves-effect blue right-align">
+          <form action="#">
+            <input onChange={this.checkHabit} type="checkbox" className="filled-in" id="filled-in-box"/>
+            <label htmlFor="filled-in-box" className="left-align" id="habit-text">{habit.get('description')}</label>
+          </form>
+          <a href={"#habitdetail/" + habit.get('objectId')} className="btn waves-effect blue">
               View Habit
             </a>
             <a onClick={(e)=>{e.preventDefault(); this.props.deleteHabit(habit)}} className="btn waves-effect red secondary-content">Delete Habit</a>

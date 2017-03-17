@@ -74,6 +74,9 @@ class HabitDetail extends React.Component {
     e.preventDefault();
     this.props.saveHabit(this.state);
   }
+  addPocket(e){
+
+  }
   render(){
     return (
       <form onSubmit={this.handleSubmit}>
@@ -87,6 +90,8 @@ class HabitDetail extends React.Component {
         </div>
           <input className="waves-effect btn orange" type="submit" value="Update Habit"/>
           <br></br>
+            <button onClick={this.addPocket} className="waves-effect btn red">Add Pocket links</button>
+            <br></br>
           <a className="waves-effect waves-light btn" href={"#habits"}>Back to Habits Dashboard</a>
       </form>
     )

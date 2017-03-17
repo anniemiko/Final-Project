@@ -65,7 +65,8 @@ class AddHabitForm extends React.Component {
   }
   render(){
     return (
-      <div className="modal-content container">
+      <div className="modal-content">
+        <a className="btn modal-action modal-close right">X</a>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="habit">What habit would you like to start or quit?</label>
