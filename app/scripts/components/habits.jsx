@@ -31,10 +31,14 @@ class HabitContainer extends React.Component{
     return (
     <div className="container">
       <div className="col-md-12">
-        <div className="user-profile">
-          <img src={profilePic} alt={User.current().get('pic').name}/>
-          <h3>{User.current().get('username')}</h3>
-          <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
+        <div className="row">
+          <div className="user-profile col s10">
+            <img src={profilePic} alt={User.current().get('pic').name}/>
+            <h3>{User.current().get('username')}</h3>
+          </div>
+          <div className="col s2">
+            <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
+          </div>
         </div>
         <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} />
       </div>
@@ -75,7 +79,6 @@ class HabitList extends React.Component{
     this.state = {
      star
     }
-    console.log(star);
   }
   render(){
     var habitList = this.props.collection.map((habit)=>{

@@ -22,7 +22,7 @@ class HabitDetailContainer extends React.Component{
       this.setState({starCollection: starCollection});
     });
 
-    // this.state.collection.parseWhere('habitCheck', '_Habits', 'objectId').fetch().then(()=>{this.setState({starCollection: starCollection})})
+    starCollection.parseWhere('habitCheck', '_Habits', 'objectId').fetch().then(()=>{this.setState({starCollection: starCollection})})
     this.state = {
       habit: habit,
       starCollection: starCollection
@@ -87,10 +87,9 @@ class HabitDetail extends React.Component {
   render(){
     var starList = this.props.starCollection.map((star)=>{
       return(
-        <li key={star.cid} className="collection-item"><i className="medium material-icons green">stars</i></li>
+        <li key={star.cid} className="collection-item stars"><i className="medium material-icons green">stars</i><p className="stars-list">{star.get('timestamp')}</p></li>
         )
       })
-      console.log(starList);
     return (
       <div className="habit-detail-screen">
         <form onSubmit={this.handleSubmit}>
