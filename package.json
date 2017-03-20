@@ -74,7 +74,8 @@
   },
   "dependencies": {
     "materialize-css": "^0.98.0",
-    "materialize-sass": "^0.95.2"
+    "materialize-sass": "^0.95.2",
+    "moment": "^2.18.0"
   },
   "postinstall": "cp node_modules/materialize-css/js/date_picker/picker.js node_modules/materialize-css/bin"
 }

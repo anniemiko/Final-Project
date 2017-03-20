@@ -36,7 +36,7 @@ class AddHabitContainer extends MaterializeModal {
   }
   render(){
     return (
-      <div className="modal" ref={(modal) => {this.modal = modal; }}>
+      <div className="modal" ref={(modal) => {this.modal = modal}}>
         <AddHabitForm action={this.addHabit} SubmitBtn="Add Habit"/>
       </div>
     )

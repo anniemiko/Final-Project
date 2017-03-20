@@ -63,7 +63,7 @@ class LoginForm extends React.Component {
 
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input onChange={this.handlePasswordChange} className="form-control" name="password" id="password" type="text" placeholder="Password please" />
+              <input onChange={this.handlePasswordChange} className="form-control" name="password" id="password" type="password" placeholder="Password please" />
             </div>
 
             <input className="btn btn-primary modal-action modal-close" type="submit" value={this.props.SubmitBtn}/>

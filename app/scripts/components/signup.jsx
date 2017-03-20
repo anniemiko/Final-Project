@@ -89,7 +89,7 @@ class SignupForm extends React.Component {
 
             <div className="form-group">
               <label htmlFor="password">Create password</label>
-              <input onChange={this.handlePasswordChange} className="form-control" name="password" id="password" type="text" placeholder="Enter password here" />
+              <input onChange={this.handlePasswordChange} className="form-control" name="password" id="password" type="password" placeholder="Enter password here" />
             </div>
 
             <div className="form-group">

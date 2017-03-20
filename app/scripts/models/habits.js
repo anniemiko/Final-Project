@@ -4,7 +4,9 @@ var ParseCollection = require('../utilities/parse.js').ParseCollection;
 
 var Habit = ParseModel.extend({
   defaults:{
-    'habit': 'habit'
+    habit: 'habit',
+    complete: 0,
+    timestamp: ''
   },
   urlRoot: 'https://brand-new-app.herokuapp.com/classes/Habits'
 });
