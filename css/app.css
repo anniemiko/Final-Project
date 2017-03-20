@@ -7751,6 +7751,12 @@ img {
   color: white;
   font-size: 18px; }
 
+.stars-list {
+  font-size: 15px; }
+
+.stars {
+  display: inline-block; }
+
 label {
   font-size: 16px; }
 
