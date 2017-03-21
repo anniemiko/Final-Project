@@ -95,14 +95,15 @@ var ParseCollection = Backbone.Collection.extend({
   parseWhere: function(field, value, objectId){
     if(objectId){
       value = {
-        field: field,
+        // field: field,
+        '__type': 'Pointer',
         className: value,
-        objectId: objectId,
-        '__type': 'Pointer'
+        objectId: objectId
+
       };
     }
     this.whereClause[field] = value;
-
+    console.log(this.whereClause);
     return this;
   },
   url: function(){
@@ -112,7 +113,7 @@ var ParseCollection = Backbone.Collection.extend({
       url += '?where=' + JSON.stringify(this.whereClause);
       this.whereClause = {};
     }
-
+console.log(url);
     return url;
   },
   parse: function(data){

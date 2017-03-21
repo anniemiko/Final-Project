@@ -13,6 +13,7 @@ class HabitContainer extends React.Component{
   constructor(props){
     super(props)
     var userId = User.current().get('objectId');
+
     var habitCollection = new HabitCollection;
 
     this.deleteHabit = this.deleteHabit.bind(this);
@@ -69,7 +70,7 @@ class HabitList extends React.Component{
   checkHabit(habit){
     var star = this.state.star;
 
-    star.isNew() ? star.set('timestamp', moment().format('l')): star.set('timestamp', star.get('timestamp'));
+    star.isNew() ? star.set('timestamp', moment().format('ll')): star.set('timestamp', star.get('timestamp'));
 
     star.setPointer('habitCheck', '_Stars', habit);
 
@@ -112,7 +113,7 @@ class HabitList extends React.Component{
               <h5>Search for friends</h5>
             </div>
             <div className="col s6">
-              <h5>Search for habits</h5>
+              <h5>View all habits</h5>
             </div>
           </div>
         </div>

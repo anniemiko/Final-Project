@@ -7,26 +7,29 @@ var parse = require('../utilities/parse').parse;
 var ParseCollection = require('../utilities/parse').ParseCollection;
 var StarCollection = require('../models/stars.js').StarCollection;
 
+// var habitId = '';
+
 class HabitDetailContainer extends React.Component{
   constructor(props){
     super(props)
     var userId = User.current().get('objectId');
     var habit = new Habit();
+    var habitId = props.id;
     var starCollection = new StarCollection();
-    habit.set('objectId', props.id);
+
     habit.fetch().then(() => {
       this.setState({habit: habit});
     });
     this.saveHabit = this.saveHabit.bind(this);
-    starCollection.fetch().then(()=>{
-      this.setState({starCollection: starCollection});
-    });
 
-    starCollection.parseWhere('habitCheck', '_Habits', 'objectId').fetch().then(()=>{this.setState({starCollection: starCollection})})
+    starCollection.parseWhere('habitCheck', 'Habits', habitId).fetch().then(()=> console.log(starCollection));
+
+
     this.state = {
       habit: habit,
       starCollection: starCollection
     }
+    console.log(habitId);
   }
   saveHabit(formData){
     var habit = this.state.habit;
@@ -36,7 +39,7 @@ class HabitDetailContainer extends React.Component{
       'motivation': formData.motivation
     });
 
-    habit.setPointer('owner', '_User', user.get('objectId'));
+    habit.setPointer('owner', '_User', userId);
 
     habit.save().then(()=>{
       this.setState({habit: habit})
