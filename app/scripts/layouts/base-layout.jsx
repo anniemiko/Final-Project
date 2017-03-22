@@ -2,20 +2,20 @@ var React = require('react');
 
 function BaseLayout(props){
   return(
-    <div className="container">
-      <div className="row">
-        <div className="col-md-12">
-
-        <div className="header">
-          <img src="#" alt="" className="logo"/>
-          <h2>Cramazing Habit App Name</h2>
-          <a class="waves-effect waves-light btn" href="#modal1">Login</a> {/* turns into Logout link when user is logged in...*/}
+    <div className="base-layout">
+      <nav>
+        <div className="nav-wrapper">
+          <a href="#" className="brand-logo center">9toSHINE</a>
+          <ul id="nav-mobile" className="left hide-on-med-and-down">
+            <li><a href="#about">About</a></li>
+            <li><a href="#habits">My Habits</a></li>
+            <li><a href="#home">Logout</a></li>
+          </ul>
         </div>
+      </nav>
 
             {props.children}
 
-        </div>
-      </div>
     </div>
   )
 }

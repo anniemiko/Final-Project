@@ -8,6 +8,7 @@ var parse = require('../utilities/parse').parse;
 var ParseCollection = require('../utilities/parse').ParseCollection;
 var AddHabitContainer = require('./addhabit.jsx').AddHabitContainer;
 var Star = require('../models/stars.js').Star;
+var BaseLayout = require('../layouts/base-layout.jsx').BaseLayout;
 
 class HabitContainer extends React.Component{
   constructor(props){
@@ -29,20 +30,22 @@ class HabitContainer extends React.Component{
   render(){
     var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg'
     return (
-    <div className="container">
-      <div className="col-md-12">
-        <div className="row">
-          <div className="user-profile col s10">
-            <img src={profilePic} alt={User.current().get('pic').name}/>
-            <h3>{User.current().get('username')}</h3>
-          </div>
-          <div className="col s2">
-            <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
+      <BaseLayout>
+        <div className="container">
+          <div className="col-md-12">
+            <div className="row">
+              <div className="user-profile col s10">
+                <img src={profilePic} alt={User.current().get('pic').name}/>
+                <h3>{User.current().get('username')}</h3>
+              </div>
+              <div className="col s2">
+                <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
+              </div>
+            </div>
+            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} />
           </div>
         </div>
-        <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} />
-      </div>
-    </div>
+      </BaseLayout>
   )
   }
 }
@@ -85,8 +88,8 @@ class HabitList extends React.Component{
       return(
         <li key={habit.cid} className="collection-item valign">
           <form action="#">
-            <input onChange={()=> this.checkHabit(habit.get('objectId'))} type="checkbox" className="filled-in" id="filled-in-box"/>
-            <label htmlFor="filled-in-box" className="left-align" id="habit-text">{habit.get('description')}</label>
+            <input onChange={()=> this.checkHabit(habit.get('objectId'))} type="checkbox" className="filled-in" id={habit.get('objectId')}/>
+            <label htmlFor={habit.get('objectId')} className="left-align" id="habit-text">{habit.get('description')}</label>
           </form>
           <a href={"#habitdetail/" + habit.get('objectId')} className="btn waves-effect blue ">
               View Habit
@@ -106,13 +109,19 @@ class HabitList extends React.Component{
           </ul>
         </div>
         <div className="connect">
-          <h3>Connect with Friends</h3>
+          <h3>Connect with Others</h3>
           <div className="row">
             <div className="col s6">
-              <h5>Search for friends</h5>
+              <h5>Group challenge</h5>
             </div>
             <div className="col s6">
-              <h5>Search for habits</h5>
+              <h5>Search for friends</h5>
+                <form onSubmit={this.handleSubmit}>
+                  <div className="input-field">
+                    <input id="search" type="search" required />
+                    <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
+                  </div>
+                </form>
             </div>
           </div>
         </div>
