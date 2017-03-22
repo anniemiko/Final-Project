@@ -71,7 +71,18 @@ var ParseModel = Backbone.Model.extend({
     this.set(field, pointerObject);
 
     return this;
-  }
+  },
+  parseInclude: function(field, value, objectId) {
+   if(objectId) {
+     value = {
+       className: value,
+       objectId: objectId,
+       '__type': 'Pointer'
+     };
+   }
+   this.includeClause[field] = value;
+   return this;
+ }
 });
 
 var ParseCollection = Backbone.Collection.extend({

@@ -24,14 +24,14 @@ class HomeContainer extends React.Component{
       <div>
         <nav className="white" role="navigation">
           <div className="nav-wrapper container">
-            <h4>Nine to Shine</h4>
+            <img src="images/9toShineLogoSmall.png"/>
             <a onClick={this.toggleLogin} className="right waves-effect waves-light btn">Log In</a>
           </div>
         </nav>
         <div className="banner">
           <br></br>
-          <div className="row col s12 header">
-            <h1 className="center">Nine to Shine</h1>
+          <div className="row col s12 header center">
+            <img src="images/9toShineLarge.png" />
           </div>
           <div className="section center">
             <h5>A simple app to help you live a healthy and productive life</h5>

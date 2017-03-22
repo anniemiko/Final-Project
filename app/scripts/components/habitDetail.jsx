@@ -16,9 +16,11 @@ class HabitDetailContainer extends React.Component{
     var starCollection = new StarCollection();
     var habitId = props.id;
 
+    habit.set('objectId', props.id);
     habit.fetch().then(() => {
       this.setState({habit: habit});
     });
+
     this.saveHabit = this.saveHabit.bind(this);
 
     starCollection.urlSetter(habitId);
@@ -49,6 +51,7 @@ class HabitDetailContainer extends React.Component{
     console.log(habit);
   }
   render(){
+    console.log('habit', this.state.habit);
     var habit = this.state.habit;
     return (
       <BaseLayout>
@@ -74,13 +77,13 @@ class HabitDetail extends React.Component {
     }
       console.log(this.state);
   }
-  // componentWillReceiveProps(newProps){
-  //   this.setState({
-  //     description: newProps.habit.get('description'),
-  //     motivation: newProps.habit.get('motivation')
-  //   })
+  componentWillReceiveProps(newProps){
+    this.setState({
+      description: newProps.habit.get('description'),
+      motivation: newProps.habit.get('motivation')
+    })
 
-// }
+}
   handleDescriptionChange(e){
     this.setState({description: e.target.value})
   }
@@ -109,7 +112,7 @@ class HabitDetail extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div className="form-group habit-detail">
             <label htmlFor="description">Your habit:</label>
-            <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.props.habit.description} placeholder="Description"/>
+            <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description} placeholder="Description"/>
           </div>
           <div className="form-group habit-detail">
             <label htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>

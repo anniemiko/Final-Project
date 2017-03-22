@@ -83,6 +83,11 @@ class HabitList extends React.Component{
      star
     }
   }
+  handleSubmit(formData){
+    var allUsers = User.get('users');
+    allUsers.parseInclude('username', formData.search)
+    console.log(allUsers);
+  }
   render(){
     var habitList = this.props.collection.map((habit)=>{
       return(
