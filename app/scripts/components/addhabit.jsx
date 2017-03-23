@@ -28,7 +28,7 @@ class AddHabitContainer extends MaterializeModal {
       habit.setPointer('owner', '_User', user.get('objectId'));
 
       habit.save().then(()=>{
-        this.props.hide()
+        this.props.hide();
       });
       this.state = {
        habit

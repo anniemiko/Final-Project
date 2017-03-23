@@ -1,9 +1,11 @@
 var React = require('react');
 var moment = require('moment');
+var _ = require('underscore');
 
 var Habit = require('../models/habits.js').Habit;
 var HabitCollection = require('../models/habits.js').HabitCollection;
 var User = require('../models/user.js').User;
+var UserCollection = require('../models/user.js').UserCollection;
 var parse = require('../utilities/parse').parse;
 var ParseCollection = require('../utilities/parse').ParseCollection;
 var AddHabitContainer = require('./addhabit.jsx').AddHabitContainer;
@@ -15,17 +17,31 @@ class HabitContainer extends React.Component{
     super(props)
     var userId = User.current().get('objectId');
     var habitCollection = new HabitCollection;
+    var userCollection = new UserCollection();
 
     this.deleteHabit = this.deleteHabit.bind(this);
+    this.handleSearch = _.debounce(this.handleSearch, 300).bind(this)
+
+    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
 
     habitCollection.parseWhere('owner', '_User', userId).fetch().then(()=>{this.setState({collection: habitCollection})})
+
     this.state = {
       collection: habitCollection,
+      userCollection: userCollection
     }
+    console.log(userCollection);
   }
   deleteHabit(habit){
     habit.destroy()
     this.setState({collection: this.state.collection});
+  }
+  handleSearch(data){
+    console.log(data);
+    var userCollection = this.state.userCollection
+    var searchedUser = userCollection.findWhere({username: data});
+    console.log(searchedUser);
+    this.setState({searchedUser: searchedUser});
   }
   render(){
     var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg'
@@ -42,7 +58,7 @@ class HabitContainer extends React.Component{
                 <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
               </div>
             </div>
-            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} />
+            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} handleSearch={this.handleSearch} searchedUser={this.state.searchedUser}/>
           </div>
         </div>
       </BaseLayout>
@@ -58,6 +74,8 @@ class HabitList extends React.Component{
     this.showAddHabit = this.showAddHabit.bind(this);
     this.hideAddHabit = this.hideAddHabit.bind(this);
     this.checkHabit = this.checkHabit.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       showAddHabit: false,
       star: star,
@@ -68,6 +86,7 @@ class HabitList extends React.Component{
   }
   hideAddHabit(){
     this.setState({showAddHabit: false});
+    this.props.collection.parseWhere('owner', '_User', User.current().get('objectId')).fetch().then(()=>{this.setState({collection: this.props.collection})})
   }
   checkHabit(habit){
     var star = this.state.star;
@@ -83,10 +102,11 @@ class HabitList extends React.Component{
      star
     }
   }
-  handleSubmit(formData){
-    var allUsers = User.get('users');
-    allUsers.parseInclude('username', formData.search)
-    console.log(allUsers);
+  handleSubmit(e){
+    this.props.handleSearch(this.state.searchTerm)
+  }
+  handleSearch(e){
+    this.setState({searchTerm: e.target.value});
   }
   render(){
     var habitList = this.props.collection.map((habit)=>{
@@ -114,7 +134,7 @@ class HabitList extends React.Component{
           </ul>
         </div>
         <div className="connect">
-          <h3>Connect with Others</h3>
+          <h3 className="center">Connect with Others</h3>
           <div className="row">
             <div className="col s6">
               <h5>Group challenge</h5>
@@ -123,8 +143,11 @@ class HabitList extends React.Component{
               <h5>Search for friends</h5>
                 <form onSubmit={this.handleSubmit}>
                   <div className="input-field">
-                    <input id="search" type="search" required />
-                    <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
+                    <input onChange={this.handleSearch} id="searchTerm" type="search" required />
+                    <label className="label-icon" htmlFor="searchTerm"><i className="material-icons">search</i></label>
+                      <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i className="material-icons right">search</i>
+                      </button>
                   </div>
                 </form>
             </div>

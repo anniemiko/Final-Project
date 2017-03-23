@@ -20,7 +20,7 @@ class SignupContainer extends MaterializeModal {
   }
   render(){
     return (
-      <div className="modal" ref={(modal) => {this.modal = modal; }}>
+      <div className="modal" ref={(modal) => {this.modal = modal}}>
         <SignupForm action={this.createAccount} SubmitBtn="Create Account"/>
       </div>
     )
@@ -31,18 +31,28 @@ class SignupForm extends React.Component {
   constructor(props){
     super(props);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePicChange = this.handlePicChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       username: '',
+      email: '',
+      phone: '',
       password: '',
       pic: {}
     };
   }
   handleUsernameChange(e){
     this.setState({username: e.target.value});
+  }
+  handleEmailChange(){
+    this.setState({email: e.target.value});
+  }
+  handlePhoneChange(){
+    this.setState({phone: e.target.value});
   }
   handlePasswordChange(e){
     this.setState({password: e.target.value})
@@ -85,6 +95,16 @@ class SignupForm extends React.Component {
             <div className="form-group">
               <label htmlFor="username">What would you like your username to be?</label>
               <input onChange={this.handleUsernameChange} className="form-control" name="username" id="username" type="text" placeholder="Enter username here" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">What is your email address?</label>
+              <input onChange={this.handleEmailChange} className="form-control" name="email" id="email" type="text" placeholder="Enter email here" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="phone">Enter your phone number to get text reminders</label>
+              <input onChange={this.handlePhoneChange} className="form-control" name="phone" id="phone" type="number" placeholder="Enter phone number here" />
             </div>
 
             <div className="form-group">

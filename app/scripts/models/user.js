@@ -1,10 +1,12 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
+var ParseModel = require('../utilities/parse.js').ParseModel;
+var ParseCollection = require('../utilities/parse.js').ParseCollection;
 // Backbone.$ = $;
 
 var parse = require('../utilities/parse').parse;
 
-var User = Backbone.Model.extend({
+var User = ParseModel.extend({
   defaults: {
     pic: {}
   },
@@ -58,6 +60,12 @@ var User = Backbone.Model.extend({
     }
 });
 
+var UserCollection = ParseCollection.extend({
+  model: User,
+  baseUrl: 'https://brand-new-app.herokuapp.com/users'
+})
+
 module.exports = {
-  User
+  User,
+  UserCollection
 }
