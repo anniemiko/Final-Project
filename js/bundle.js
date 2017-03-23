@@ -109,9 +109,11 @@ class HabitDetailContainer extends React.Component{
     var starCollection = new StarCollection();
     var habitId = props.id;
 
+    habit.set('objectId', props.id);
     habit.fetch().then(() => {
       this.setState({habit: habit});
     });
+
     this.saveHabit = this.saveHabit.bind(this);
 
     starCollection.urlSetter(habitId);
@@ -142,6 +144,7 @@ class HabitDetailContainer extends React.Component{
     console.log(habit);
   }
   render(){
+    console.log('habit', this.state.habit);
     var habit = this.state.habit;
     return (
       React.createElement(BaseLayout, null, 
@@ -167,13 +170,13 @@ class HabitDetail extends React.Component {
     }
       console.log(this.state);
   }
-  // componentWillReceiveProps(newProps){
-  //   this.setState({
-  //     description: newProps.habit.get('description'),
-  //     motivation: newProps.habit.get('motivation')
-  //   })
+  componentWillReceiveProps(newProps){
+    this.setState({
+      description: newProps.habit.get('description'),
+      motivation: newProps.habit.get('motivation')
+    })
 
-// }
+}
   handleDescriptionChange(e){
     this.setState({description: e.target.value})
   }
@@ -202,7 +205,7 @@ class HabitDetail extends React.Component {
         React.createElement("form", {onSubmit: this.handleSubmit}, 
           React.createElement("div", {className: "form-group habit-detail"}, 
             React.createElement("label", {htmlFor: "description"}, "Your habit:"), 
-            React.createElement("input", {onChange: this.handleDescriptionChange, type: "text", className: "form-control", name: "description", value: this.props.habit.description, placeholder: "Description"})
+            React.createElement("input", {onChange: this.handleDescriptionChange, type: "text", className: "form-control", name: "description", value: this.state.description, placeholder: "Description"})
           ), 
           React.createElement("div", {className: "form-group habit-detail"}, 
             React.createElement("label", {htmlFor: "motivation"}, "Your motivation for beginning/quitting this habit:"), 
@@ -321,6 +324,11 @@ class HabitList extends React.Component{
     this.state = {
      star
     }
+  }
+  handleSubmit(formData){
+    var allUsers = User.get('users');
+    allUsers.parseInclude('username', formData.search)
+    console.log(allUsers);
   }
   render(){
     var habitList = this.props.collection.map((habit)=>{
@@ -646,14 +654,14 @@ class HomeContainer extends React.Component{
       React.createElement("div", null, 
         React.createElement("nav", {className: "white", role: "navigation"}, 
           React.createElement("div", {className: "nav-wrapper container"}, 
-            React.createElement("h4", null, "Nine to Shine"), 
+            React.createElement("img", {src: "images/9toShineLogoSmall.png"}), 
             React.createElement("a", {onClick: this.toggleLogin, className: "right waves-effect waves-light btn"}, "Log In")
           )
         ), 
         React.createElement("div", {className: "banner"}, 
           React.createElement("br", null), 
-          React.createElement("div", {className: "row col s12 header"}, 
-            React.createElement("h1", {className: "center"}, "Nine to Shine")
+          React.createElement("div", {className: "row col s12 header center"}, 
+            React.createElement("img", {src: "images/9toShineLarge.png"})
           ), 
           React.createElement("div", {className: "section center"}, 
             React.createElement("h5", null, "A simple app to help you live a healthy and productive life")
@@ -713,12 +721,14 @@ function BaseLayout(props){
   return(
     React.createElement("div", {className: "base-layout"}, 
       React.createElement("nav", null, 
-        React.createElement("div", {className: "nav-wrapper"}, 
-          React.createElement("a", {href: "#", className: "brand-logo center"}, "9toSHINE"), 
+        React.createElement("div", {className: "nav-wrapper navbar"}, 
+          React.createElement("a", {href: "#", className: "brand-logo center"}, React.createElement("img", {src: "images/9toShine.png"})), 
           React.createElement("ul", {id: "nav-mobile", className: "left hide-on-med-and-down"}, 
             React.createElement("li", null, React.createElement("a", {href: "#about"}, "About")), 
-            React.createElement("li", null, React.createElement("a", {href: "#habits"}, "My Habits")), 
-            React.createElement("li", null, React.createElement("a", {href: "#home"}, "Logout"))
+            React.createElement("li", null, React.createElement("a", {href: "#habits"}, "My Habits"))
+          ), 
+          React.createElement("ul", {id: "nav-mobile", className: "right hide-on-med-and-down"}, 
+          React.createElement("li", null, React.createElement("a", {href: "#home"}, "Logout"))
           )
         )
       ), 
@@ -973,7 +983,18 @@ var ParseModel = Backbone.Model.extend({
     this.set(field, pointerObject);
 
     return this;
-  }
+  },
+  parseInclude: function(field, value, objectId) {
+   if(objectId) {
+     value = {
+       className: value,
+       objectId: objectId,
+       '__type': 'Pointer'
+     };
+   }
+   this.includeClause[field] = value;
+   return this;
+ }
 });
 
 var ParseCollection = Backbone.Collection.extend({

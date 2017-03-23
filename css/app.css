@@ -7725,7 +7725,7 @@ h5 {
 h3 {
   color: white; }
 
-img {
+.user-profile img {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -7757,7 +7757,7 @@ img {
 .stars {
   display: inline-block; }
 
-.nav-wrapper {
+.navbar {
   background-color: #70BBBF; }
 
 label {
