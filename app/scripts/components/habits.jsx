@@ -9,6 +9,8 @@ var UserCollection = require('../models/user.js').UserCollection;
 var parse = require('../utilities/parse').parse;
 var ParseCollection = require('../utilities/parse').ParseCollection;
 var AddHabitContainer = require('./addhabit.jsx').AddHabitContainer;
+var CreateChallengeContainer = require('./createchallenge.jsx').CreateChallengeContainer;
+var JoinChallengeContainer = require('./joinchallenge.jsx').JoinChallengeContainer;
 var Star = require('../models/stars.js').Star;
 var BaseLayout = require('../layouts/base-layout.jsx').BaseLayout;
 
@@ -17,17 +19,13 @@ class HabitContainer extends React.Component{
     super(props)
     var userId = User.current().get('objectId');
     var habitCollection = new HabitCollection;
-    var userCollection = new UserCollection();
 
     this.deleteHabit = this.deleteHabit.bind(this);
-
-    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
 
     habitCollection.parseWhere('owner', '_User', userId).fetch().then(()=>{this.setState({collection: habitCollection})})
 
     this.state = {
-      collection: habitCollection,
-      userCollection: userCollection
+      collection: habitCollection
     }
     // console.log(userCollection);
   }
@@ -50,7 +48,7 @@ class HabitContainer extends React.Component{
                 <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
               </div>
             </div>
-            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection}/>
+            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} />
           </div>
         </div>
       </BaseLayout>
@@ -62,15 +60,26 @@ class HabitList extends React.Component{
   constructor(props){
     super(props)
     var star = new Star();
+    var userCollection = new UserCollection();
+
+    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
+    console.log(userCollection);
 
     this.showAddHabit = this.showAddHabit.bind(this);
     this.hideAddHabit = this.hideAddHabit.bind(this);
+    this.showCreateChallenge = this.showCreateChallenge.bind(this);
+    this.hideCreateChallenge = this.hideCreateChallenge.bind(this);
+    this.showJoinChallenge = this.showJoinChallenge.bind(this);
+    this.hideJoinChallenge = this.hideJoinChallenge.bind(this);
     this.checkHabit = this.checkHabit.bind(this);
     this.handleSearch = _.debounce(this.handleSearch, 300).bind(this)
 
     this.state = {
       showAddHabit: false,
+      showCreateChallenge: false,
+      showJoinChallenge: false,
       star: star,
+      userCollection: userCollection
     }
   }
   showAddHabit(){
@@ -79,6 +88,18 @@ class HabitList extends React.Component{
   hideAddHabit(){
     this.setState({showAddHabit: false});
     this.props.collection.parseWhere('owner', '_User', User.current().get('objectId')).fetch().then(()=>{this.setState({collection: this.props.collection})})
+  }
+  showCreateChallenge(){
+    this.setState({showCreateChallenge: true});
+  }
+  hideCreateChallenge(){
+    this.setState({showCreateChallenge: false});
+  }
+  showJoinChallenge(){
+    this.setState({showJoinChallenge: true});
+  }
+  hideJoinChallenge(){
+    this.setState({showJoinChallenge: false});
   }
   checkHabit(habit){
     var star = this.state.star;
@@ -96,7 +117,7 @@ class HabitList extends React.Component{
   }
   handleSearch(data){
     console.log(data);
-    var userCollection = this.props.userCollection
+    var userCollection = this.state.userCollection
     var searchedUser = userCollection.findWhere({username: data});
     console.log(searchedUser);
     this.setState({searchedUser: searchedUser});
@@ -130,16 +151,22 @@ class HabitList extends React.Component{
           <h3 className="center">Connect with Others</h3>
           <div className="row">
             <div className="col s6">
-              <h5>Group challenge</h5>
+              <h4>Group challenge!</h4>
+              <p>List of challenges user is participating in</p>
+              <button onClick={this.showCreateChallenge} className="btn">Create a Challenge</button>
+              
+              <button onClick={this.showJoinChallenge} className="btn">Join a Challenge</button>
             </div>
             <div className="col s6">
-              <h5>Friends</h5>
+              <h4>Friends</h4>
                   <FriendForm handleSearch={this.handleSearch} searchedUser={this.state.searchedUser} />
             </div>
           </div>
         </div>
       </div>
       <AddHabitContainer show={this.state.showAddHabit} hide={this.hideAddHabit}/>
+      <CreateChallengeContainer show={this.state.showCreateChallenge} hide={this.hideCreateChallenge}/>
+      <JoinChallengeContainer show={this.state.showJoinChallenge} hide={this.hideJoinChallenge}/>
     </div>
   )
   }
@@ -148,7 +175,7 @@ class HabitList extends React.Component{
 class FriendForm extends React.Component{
   constructor(props){
     super(props)
-
+    console.log('props', this.props.searchedUser);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -162,18 +189,20 @@ class FriendForm extends React.Component{
   render(){
     return(
       <div className="friends">
-        <h4>Your friends:</h4>
-        <p>list of friends goes here</p>
+        <p>List of friends goes here</p>
         <form onSubmit={this.handleSubmit}>
           <div className="input-field">
-            <input onChange={this.handleSearch} id="searchTerm" type="search" required />
-            <label className="label-icon" htmlFor="searchTerm"><i className="material-icons">search</i></label>
+            <i className="material-icons">search</i>
+            <input onChange={this.handleSearch} id="searchTerm" type="search" placeholder="search for friends"/>
+
               <button className="btn waves-effect waves-light" type="submit" name="action">Submit
                 <i className="material-icons right">search</i>
               </button>
           </div>
         </form>
-        <ul><li></li></ul>
+        <ul>
+          <li></li>
+          </ul>
       </div>
 
     )

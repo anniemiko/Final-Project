@@ -48,10 +48,10 @@ class SignupForm extends React.Component {
   handleUsernameChange(e){
     this.setState({username: e.target.value});
   }
-  handleEmailChange(){
+  handleEmailChange(e){
     this.setState({email: e.target.value});
   }
-  handlePhoneChange(){
+  handlePhoneChange(e){
     this.setState({phone: e.target.value});
   }
   handlePasswordChange(e){
