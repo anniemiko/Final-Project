@@ -20,7 +20,6 @@ class HabitContainer extends React.Component{
     var userCollection = new UserCollection();
 
     this.deleteHabit = this.deleteHabit.bind(this);
-    this.handleSearch = _.debounce(this.handleSearch, 300).bind(this)
 
     userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
 
@@ -30,18 +29,11 @@ class HabitContainer extends React.Component{
       collection: habitCollection,
       userCollection: userCollection
     }
-    console.log(userCollection);
+    // console.log(userCollection);
   }
   deleteHabit(habit){
     habit.destroy()
     this.setState({collection: this.state.collection});
-  }
-  handleSearch(data){
-    console.log(data);
-    var userCollection = this.state.userCollection
-    var searchedUser = userCollection.findWhere({username: data});
-    console.log(searchedUser);
-    this.setState({searchedUser: searchedUser});
   }
   render(){
     var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg'
@@ -58,7 +50,7 @@ class HabitContainer extends React.Component{
                 <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
               </div>
             </div>
-            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} handleSearch={this.handleSearch} searchedUser={this.state.searchedUser}/>
+            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection}/>
           </div>
         </div>
       </BaseLayout>
@@ -74,8 +66,8 @@ class HabitList extends React.Component{
     this.showAddHabit = this.showAddHabit.bind(this);
     this.hideAddHabit = this.hideAddHabit.bind(this);
     this.checkHabit = this.checkHabit.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSearch = _.debounce(this.handleSearch, 300).bind(this)
+
     this.state = {
       showAddHabit: false,
       star: star,
@@ -102,11 +94,12 @@ class HabitList extends React.Component{
      star
     }
   }
-  handleSubmit(e){
-    this.props.handleSearch(this.state.searchTerm)
-  }
-  handleSearch(e){
-    this.setState({searchTerm: e.target.value});
+  handleSearch(data){
+    console.log(data);
+    var userCollection = this.props.userCollection
+    var searchedUser = userCollection.findWhere({username: data});
+    console.log(searchedUser);
+    this.setState({searchedUser: searchedUser});
   }
   render(){
     var habitList = this.props.collection.map((habit)=>{
@@ -140,16 +133,8 @@ class HabitList extends React.Component{
               <h5>Group challenge</h5>
             </div>
             <div className="col s6">
-              <h5>Search for friends</h5>
-                <form onSubmit={this.handleSubmit}>
-                  <div className="input-field">
-                    <input onChange={this.handleSearch} id="searchTerm" type="search" required />
-                    <label className="label-icon" htmlFor="searchTerm"><i className="material-icons">search</i></label>
-                      <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i className="material-icons right">search</i>
-                      </button>
-                  </div>
-                </form>
+              <h5>Friends</h5>
+                  <FriendForm handleSearch={this.handleSearch} searchedUser={this.state.searchedUser} />
             </div>
           </div>
         </div>
@@ -157,6 +142,41 @@ class HabitList extends React.Component{
       <AddHabitContainer show={this.state.showAddHabit} hide={this.hideAddHabit}/>
     </div>
   )
+  }
+}
+
+class FriendForm extends React.Component{
+  constructor(props){
+    super(props)
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+  }
+  handleSubmit(e){
+    this.props.handleSearch(this.state.searchTerm)
+  }
+  handleSearch(e){
+    this.setState({searchTerm: e.target.value});
+  }
+  render(){
+    return(
+      <div className="friends">
+        <h4>Your friends:</h4>
+        <p>list of friends goes here</p>
+        <form onSubmit={this.handleSubmit}>
+          <div className="input-field">
+            <input onChange={this.handleSearch} id="searchTerm" type="search" required />
+            <label className="label-icon" htmlFor="searchTerm"><i className="material-icons">search</i></label>
+              <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i className="material-icons right">search</i>
+              </button>
+          </div>
+        </form>
+        <ul><li></li></ul>
+      </div>
+
+    )
   }
 }
 
