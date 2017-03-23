@@ -7714,7 +7714,7 @@ h1 {
   text-align: center;
   text-shadow: 2px 2px 5px #000; }
 
-h5 {
+.banner h5 {
   color: white;
   text-align: center;
   text-shadow: 1px 1px 3px #000; }
@@ -7722,7 +7722,7 @@ h5 {
 .habit-info {
   color: white; }
 
-h3 {
+h3, h4, h5 {
   color: white; }
 
 .user-profile img {
