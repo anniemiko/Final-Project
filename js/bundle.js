@@ -110,7 +110,7 @@ class CreateChallengeContainer extends MaterializeModal {
     }
   }
   createChallenge(formData){
-      var challenge = this.state.habit;
+      var challenge = this.state.challenge;
       var user = User.current();
 
       challenge.set({
@@ -553,27 +553,39 @@ var Backbone = require('backbone');
 var $ = window.jQuery = require('jquery');
 var Materialize = require('materialize-css');
 
-var Challenge = require('../models/challenge.js').Challenge;
+var ChallengeCollection = require('../models/challenge.js').ChallengeCollection;
 var User = require('../models/user.js').User;
 var MaterializeModal = require('./materialize.jsx').MaterializeModal;
 
 class JoinChallengeContainer extends MaterializeModal {
   constructor(props){
     super(props);
-    var challenge = new Challenge();
-
+    var userId = User.current().get('objectId');
+    var challengeCollection = new ChallengeCollection();
+    challengeCollection.fetch().then(()=>{this.setState({collection: challengeCollection})})
     this.state = {
-     challenge
+     collection: challengeCollection
     }
   }
+  handleSubmit(){
+    challenge.setRelation('participants', 'Challenge', userId);
+  }
   render(){
+    var challengeList = this.state.collection.map((challenge)=>{
+      return(
+        React.createElement("li", {key: challenge.cid, className: "collection-item valign"}, 
+          React.createElement("span", null, challenge.get('name')), 
+          React.createElement("a", {onClick: this.handleSubmit, className: "btn waves-effect blue right"}, "Join Challenge")
+        )
+      )
+    })
     return(
       React.createElement("div", {className: "modal", ref: (modal) => {this.modal = modal}}, 
         React.createElement("div", {className: "modal-content"}, 
           React.createElement("a", {className: "btn modal-action modal-close right"}, "X"), 
           React.createElement("h4", null, "Choose a habit challenge to join:"), 
-          React.createElement("p", null, "list of challenges to join"), 
-          React.createElement("input", {className: "btn btn-primary modal-action modal-close", type: "submit", value: "Join Challenge"})
+          React.createElement("ul", {className: "collection valign"}, challengeList), 
+          React.createElement("input", {className: "btn btn-primary modal-action modal-close", type: "submit", value: "Done"})
         )
       )
     )
@@ -1239,6 +1251,17 @@ var ParseModel = Backbone.Model.extend({
     };
 
     this.set(field, pointerObject);
+
+    return this;
+  },
+  setRelation: function(field, parseClass, objectId){
+    var relationObject = {
+      "__type": "Relation",
+      "className": parseClass,
+      "objectId": objectId
+    };
+
+    this.set(field, relationObject);
 
     return this;
   },
