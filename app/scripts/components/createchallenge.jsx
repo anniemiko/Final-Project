@@ -17,7 +17,7 @@ class CreateChallengeContainer extends MaterializeModal {
     }
   }
   createChallenge(formData){
-      var challenge = this.state.habit;
+      var challenge = this.state.challenge;
       var user = User.current();
 
       challenge.set({
