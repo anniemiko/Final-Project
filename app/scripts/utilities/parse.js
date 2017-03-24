@@ -106,7 +106,6 @@ var ParseCollection = Backbone.Collection.extend({
   parseWhere: function(field, value, objectId){
     if(objectId){
       value = {
-        field: field,
         className: value,
         objectId: objectId,
         '__type': 'Pointer'
@@ -116,6 +115,17 @@ var ParseCollection = Backbone.Collection.extend({
 
     return this;
   },
+  parseInclude: function(field, value, objectId) {
+   if(objectId) {
+     value = {
+       className: value,
+       objectId: objectId,
+       '__type': 'Pointer'
+     };
+   }
+   this.includeClause[field] = value;
+   return this;
+ },
   url: function(){
     var url = this.baseUrl;
 
@@ -124,6 +134,10 @@ var ParseCollection = Backbone.Collection.extend({
       this.whereClause = {};
     }
 
+    return url;
+  },
+  urlSetter: function(url){
+    var url = this.baseUrl;
     return url;
   },
   parse: function(data){

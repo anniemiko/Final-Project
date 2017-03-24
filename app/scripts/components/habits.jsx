@@ -19,16 +19,17 @@ class HabitContainer extends React.Component{
     super(props)
     var userId = User.current().get('objectId');
     var habitCollection = new HabitCollection;
-      var userCollection = new UserCollection();
+    var userCollection = new UserCollection();
 
     this.deleteHabit = this.deleteHabit.bind(this);
 
+    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection}), console.log('drinks', userCollection)});
+
     habitCollection.parseWhere('owner', '_User', userId).fetch().then(()=>{this.setState({collection: habitCollection})})
-    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
+
     this.state = {
       collection: habitCollection,
       userCollection: userCollection
-
     }
   }
   deleteHabit(habit){
@@ -48,7 +49,7 @@ class HabitContainer extends React.Component{
                 <a href="#" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Edit your profile"><i className="material-icons edit">mode_edit</i></a>
               </div>
             </div>
-            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} />
+            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} />
           </div>
         </div>
       </BaseLayout>
@@ -60,10 +61,6 @@ class HabitList extends React.Component{
   constructor(props){
     super(props)
     var star = new Star();
-    var userCollection = new UserCollection();
-
-    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
-    console.log('userCollection', userCollection);
 
     this.showAddHabit = this.showAddHabit.bind(this);
     this.hideAddHabit = this.hideAddHabit.bind(this);
@@ -78,8 +75,7 @@ class HabitList extends React.Component{
       showAddHabit: false,
       showCreateChallenge: false,
       showJoinChallenge: false,
-      star: star,
-      userCollection: userCollection
+      star: star
     }
   }
   showAddHabit(){
@@ -117,12 +113,8 @@ class HabitList extends React.Component{
   }
   handleFriendSearch(data){
     console.log('searchterm', data);
-    var userCollection = new UserCollection();
 
-    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
-    console.log('component userCollection', userCollection);
-
-    var searchedUser = userCollection.where({username:data});
+    var searchedUser = this.props.userCollection.findWhere({username:data});
     console.log('searchedUser', searchedUser);
     this.setState({searchedUser: searchedUser});
   }
