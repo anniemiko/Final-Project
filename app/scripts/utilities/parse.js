@@ -72,17 +72,6 @@ var ParseModel = Backbone.Model.extend({
 
     return this;
   },
-  setRelation: function(field, parseClass, objectId){
-    var relationObject = {
-      "__type": "Relation",
-      "className": parseClass,
-      "objectId": objectId
-    };
-
-    this.set(field, relationObject);
-
-    return this;
-  },
   parseInclude: function(field, value, objectId) {
    if(objectId) {
      value = {

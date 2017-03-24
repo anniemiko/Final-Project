@@ -78,10 +78,19 @@ class HabitDetail extends React.Component {
       console.log(this.state);
   }
   componentWillReceiveProps(newProps){
-    this.setState({
-      description: newProps.habit.get('description'),
-      motivation: newProps.habit.get('motivation')
-    })
+
+   if(localStorage.getItem('pocket_request_token')) {
+     var pocket_request_token = localStorage.getItem('pocket_request_token');
+     localStorage.removeItem('pocket_request_token');
+     $.get(`${SERVER_URL}/token`, { request_token: pocket_request_token }).done(response => {
+       localStorage.setItem('pocket_access_token', response);
+     });
+   }
+
+   this.setState({
+     description: newProps.habit.get('description'),
+     motivation: newProps.habit.get('motivation')
+   })
 
 }
   handleDescriptionChange(e){
@@ -95,15 +104,24 @@ class HabitDetail extends React.Component {
     this.props.saveHabit(this.state);
   }
   addPocket(e){
+   e.preventDefault();
 
-  }
+   var habitId = this.props.habitId;
+
+   if(!localStorage.getItem('pocket_access_token')){
+     $.get(`${SERVER_URL}/request`, { habitId }).then(response => {
+       localStorage.setItem('pocket_request_token', response.request_token );
+       window.location.href = response.url;
+     })
+   }
+ }
   render(){
       // console.log(habit.get('objectId'));
     // console.log('habitDetail collection', this.props.starCollection);
     var starList = this.props.starCollection.map((star)=>{
       if (star.attributes.habitCheck.objectId == this.props.habitId) {
         return(
-          <li key={star.cid} className="collection-item stars"><i className="medium material-icons green">stars</i><p className="stars-list">{star.get('timestamp')}</p></li>
+          <li key={star.cid} className="collection-item stars"><i className="medium material-icons">stars</i><p className="stars-list">{star.get('timestamp')}</p></li>
         )
       }
     })
@@ -122,10 +140,10 @@ class HabitDetail extends React.Component {
         </form>
           <br></br>
           <div className="row">
-            <div className="col s6">
+            <div className="col m6 s12">
                 <button onClick={this.addPocket} className="waves-effect btn red">Add Pocket links</button>
             </div>
-            <div className="col s6">
+            <div className="col m6 s12">
               <h4>Habit Chain</h4>
                 <ul className="collection valign">
                   {starList}

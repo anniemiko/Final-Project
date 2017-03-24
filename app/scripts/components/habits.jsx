@@ -7,7 +7,7 @@ var HabitCollection = require('../models/habits.js').HabitCollection;
 var User = require('../models/user.js').User;
 var UserCollection = require('../models/user.js').UserCollection;
 var parse = require('../utilities/parse').parse;
-var ParseCollection = require('../utilities/parse').ParseCollection;
+
 var AddHabitContainer = require('./addhabit.jsx').AddHabitContainer;
 var CreateChallengeContainer = require('./createchallenge.jsx').CreateChallengeContainer;
 var JoinChallengeContainer = require('./joinchallenge.jsx').JoinChallengeContainer;
@@ -19,15 +19,17 @@ class HabitContainer extends React.Component{
     super(props)
     var userId = User.current().get('objectId');
     var habitCollection = new HabitCollection;
+      var userCollection = new UserCollection();
 
     this.deleteHabit = this.deleteHabit.bind(this);
 
     habitCollection.parseWhere('owner', '_User', userId).fetch().then(()=>{this.setState({collection: habitCollection})})
-
+    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
     this.state = {
-      collection: habitCollection
+      collection: habitCollection,
+      userCollection: userCollection
+
     }
-    // console.log(userCollection);
   }
   deleteHabit(habit){
     habit.destroy()
@@ -38,14 +40,12 @@ class HabitContainer extends React.Component{
     return (
       <BaseLayout>
         <div className="container">
-          <div className="col-md-12">
+          <div className="col s12">
             <div className="row">
-              <div className="user-profile col s10">
-                <img src={profilePic} alt={User.current().get('pic').name}/>
-                <h3>{User.current().get('username')}</h3>
-              </div>
-              <div className="col s2">
-                <h5 className="waves-effect darken-1 btn yellow right" onClick={User.logout}>Logout</h5>
+              <div className="col s3">
+                <img src={profilePic} alt={User.current().get('pic').name} className="circle profilepic"/>
+                  <span className="title username">{User.current().get('username')}</span>
+                <a href="#" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Edit your profile"><i className="material-icons edit">mode_edit</i></a>
               </div>
             </div>
             <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} />
@@ -63,7 +63,7 @@ class HabitList extends React.Component{
     var userCollection = new UserCollection();
 
     userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
-    console.log(userCollection);
+    console.log('userCollection', userCollection);
 
     this.showAddHabit = this.showAddHabit.bind(this);
     this.hideAddHabit = this.hideAddHabit.bind(this);
@@ -72,7 +72,7 @@ class HabitList extends React.Component{
     this.showJoinChallenge = this.showJoinChallenge.bind(this);
     this.hideJoinChallenge = this.hideJoinChallenge.bind(this);
     this.checkHabit = this.checkHabit.bind(this);
-    this.handleSearch = _.debounce(this.handleSearch, 300).bind(this)
+    this.handleFriendSearch = _.debounce(this.handleFriendSearch, 300).bind(this)
 
     this.state = {
       showAddHabit: false,
@@ -90,13 +90,13 @@ class HabitList extends React.Component{
     this.props.collection.parseWhere('owner', '_User', User.current().get('objectId')).fetch().then(()=>{this.setState({collection: this.props.collection})})
   }
   showCreateChallenge(){
-    this.setState({showCreateChallenge: true});
+    this.setState({showCreateChallenge: true, showJoinChallenge: false});
   }
   hideCreateChallenge(){
     this.setState({showCreateChallenge: false});
   }
   showJoinChallenge(){
-    this.setState({showJoinChallenge: true});
+    this.setState({showJoinChallenge: true, showCreateChallenge: false});
   }
   hideJoinChallenge(){
     this.setState({showJoinChallenge: false});
@@ -109,17 +109,21 @@ class HabitList extends React.Component{
     star.setPointer('habitCheck', '_Stars', habit);
 
     star.save().then(()=>{
-      // this.props.hide()
+
     });
     this.state = {
      star
     }
   }
-  handleSearch(data){
-    console.log(data);
-    var userCollection = this.state.userCollection
-    var searchedUser = userCollection.findWhere({username: data});
-    console.log(searchedUser);
+  handleFriendSearch(data){
+    console.log('searchterm', data);
+    var userCollection = new UserCollection();
+
+    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection})});
+    console.log('component userCollection', userCollection);
+
+    var searchedUser = userCollection.where({username:data});
+    console.log('searchedUser', searchedUser);
     this.setState({searchedUser: searchedUser});
   }
   render(){
@@ -150,16 +154,16 @@ class HabitList extends React.Component{
         <div className="connect">
           <h3 className="center">Connect with Others</h3>
           <div className="row">
-            <div className="col s6">
+            <div className="col m6 s12">
               <h4>Group challenge!</h4>
               <p>List of challenges user is participating in</p>
               <button onClick={this.showCreateChallenge} className="btn">Create a Challenge</button>
-              
+
               <button onClick={this.showJoinChallenge} className="btn">Join a Challenge</button>
             </div>
-            <div className="col s6">
+            <div className="col m6 s12">
               <h4>Friends</h4>
-                  <FriendForm handleSearch={this.handleSearch} searchedUser={this.state.searchedUser} />
+                  <FriendForm handleFriendSearch={this.handleFriendSearch} searchedUser={this.state.searchedUser} />
             </div>
           </div>
         </div>
@@ -175,13 +179,13 @@ class HabitList extends React.Component{
 class FriendForm extends React.Component{
   constructor(props){
     super(props)
-    console.log('props', this.props.searchedUser);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
   handleSubmit(e){
-    this.props.handleSearch(this.state.searchTerm)
+    this.props.handleFriendSearch(this.state.searchTerm)
+    console.log('props', this.props.searchedUser);
   }
   handleSearch(e){
     this.setState({searchTerm: e.target.value});

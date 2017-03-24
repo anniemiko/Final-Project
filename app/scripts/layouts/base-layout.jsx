@@ -1,5 +1,7 @@
 var React = require('react');
 
+var User = require('../models/user.js').User;
+
 function BaseLayout(props){
   return(
     <div className="base-layout">
@@ -12,7 +14,7 @@ function BaseLayout(props){
             <li><a href="#habits">My Habits</a></li>
           </ul>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li><a  href="#home">Logout</a></li>
+          <li><a  onClick={User.logout} href="#home">Logout</a></li>
           </ul>
           <ul className="side-nav" id="mobile-demo">
             <li><a href="#about">About</a></li>
