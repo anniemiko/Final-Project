@@ -12,6 +12,7 @@ function BaseLayout(props){
           <ul id="nav-mobile" className="left hide-on-med-and-down">
             <li><a href="#about">About</a></li>
             <li><a href="#habits">My Habits</a></li>
+            <li><a href="#friends">Friends</a></li>
           </ul>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li><a  onClick={User.logout} href="#home">Logout</a></li>

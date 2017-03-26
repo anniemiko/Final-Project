@@ -8,7 +8,8 @@ var parse = require('../utilities/parse').parse;
 
 var User = ParseModel.extend({
   defaults: {
-    pic: {}
+    pic: {},
+    friends: []
   },
   idAttribute: 'objectId',
   urlRoot: 'https://brand-new-app.herokuapp.com/users'

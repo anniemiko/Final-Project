@@ -8,12 +8,14 @@ var LoginContainer = require('./components/login.jsx').LoginContainer;
 var User = require('./models/user').User;
 var HabitContainer = require('./components/habits.jsx').HabitContainer;
 var HabitDetailContainer = require('./components/habitDetail.jsx').HabitDetailContainer;
+var FriendsContainer = require('./components/friends.jsx').FriendsContainer;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
     'home': 'index',
     'habits': 'habits',
+    'friends': 'friends',
     'habitdetail/:id': 'habitdetail',
     'profile/:id': 'profile'
   },
@@ -27,6 +29,12 @@ var AppRouter = Backbone.Router.extend({
   habits: function(id){
     ReactDOM.render(
       React.createElement(HabitContainer, {id: id}),
+      document.getElementById('app')
+    )
+  },
+  friends: function(id){
+    ReactDOM.render(
+      React.createElement(FriendsContainer, {id: id}),
       document.getElementById('app')
     )
   },

@@ -9,6 +9,7 @@ var UserCollection = require('../models/user.js').UserCollection;
 var parse = require('../utilities/parse').parse;
 
 var AddHabitContainer = require('./addhabit.jsx').AddHabitContainer;
+var ChallengeCollection = require('../models/challenge.js').ChallengeCollection;
 var CreateChallengeContainer = require('./createchallenge.jsx').CreateChallengeContainer;
 var JoinChallengeContainer = require('./joinchallenge.jsx').JoinChallengeContainer;
 var Star = require('../models/stars.js').Star;
@@ -20,21 +21,39 @@ class HabitContainer extends React.Component{
     var userId = User.current().get('objectId');
     var habitCollection = new HabitCollection;
     var userCollection = new UserCollection();
+    var challengeCollection = new ChallengeCollection();
 
     this.deleteHabit = this.deleteHabit.bind(this);
+    this.handleFriendSearch = _.debounce(this.handleFriendSearch, 300).bind(this)
+
+    // challengeCollection.fetch().then(()=>{this.setState({challengeCollection: challengeCollection})})
 
     userCollection.fetch().then(()=>{this.setState({userCollection: userCollection}), console.log('drinks', userCollection)});
 
-    habitCollection.parseWhere('owner', '_User', userId).fetch().then(()=>{this.setState({collection: habitCollection})})
+    habitCollection.parseWhere('owner', '_User', userId).fetch().then(()=>{this.setState({collection: habitCollection})}).done(habitCollection.urlSetter())
 
     this.state = {
       collection: habitCollection,
-      userCollection: userCollection
+      userCollection: userCollection,
+      challengeCollection: challengeCollection,
+      friends: []
     }
   }
   deleteHabit(habit){
     habit.destroy()
     this.setState({collection: this.state.collection});
+  }
+  handleFriendSearch(data){
+    console.log('searchterm', data);
+
+    var friend = this.state.userCollection.findWhere({username:data});
+
+    var friends = this.state.friends;
+    friends.push(friend);
+    this.setState({friends})
+
+    console.log('searchedUser', friend);
+    console.log('friends', friends);
   }
   render(){
     var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg'
@@ -49,7 +68,7 @@ class HabitContainer extends React.Component{
                 <a href="#" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Edit your profile"><i className="material-icons edit">mode_edit</i></a>
               </div>
             </div>
-            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} />
+            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} handleFriendSearch={this.handleFriendSearch} friends={this.state.friends} challengeCollection={this.state.challengeCollection}/>
           </div>
         </div>
       </BaseLayout>
@@ -69,7 +88,9 @@ class HabitList extends React.Component{
     this.showJoinChallenge = this.showJoinChallenge.bind(this);
     this.hideJoinChallenge = this.hideJoinChallenge.bind(this);
     this.checkHabit = this.checkHabit.bind(this);
-    this.handleFriendSearch = _.debounce(this.handleFriendSearch, 300).bind(this)
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       showAddHabit: false,
@@ -111,12 +132,18 @@ class HabitList extends React.Component{
      star
     }
   }
-  handleFriendSearch(data){
-    console.log('searchterm', data);
-
-    var searchedUser = this.props.userCollection.findWhere({username:data});
-    console.log('searchedUser', searchedUser);
-    this.setState({searchedUser: searchedUser});
+  handleSubmit(e){
+    this.props.handleFriendSearch(this.state.searchTerm)
+    console.log('props', this.props.friends);
+  }
+  handleSearch(e){
+    this.setState({searchTerm: e.target.value});
+  }
+  addFriend(friend){
+    var userFriends = User.current().get('friends');
+    console.log('userFriends1', userFriends);
+    userFriends.push(friend);
+    console.log('userFriends2', userFriends);
   }
   render(){
     var habitList = this.props.collection.map((habit)=>{
@@ -130,6 +157,16 @@ class HabitList extends React.Component{
               View Habit
             </a>
             <a onClick={(e)=>{e.preventDefault(); this.props.deleteHabit(habit)}} className="btn waves-effect red secondary-content">Delete Habit</a>
+        </li>
+      )
+    })
+    var friendList = this.props.friends.map((friend, index)=>{
+      console.log(friend);
+      return(
+        <li key={index} className="collection-item">
+          <img src={friend.get('pic').url} className="circle profilepic"/>
+          <h6>{friend.get('username')}</h6>
+          <button onClick={()=>this.addFriend(friend)} className="btn waves-effect orange secondary-content top">Add friend</button>
         </li>
       )
     })
@@ -154,54 +191,33 @@ class HabitList extends React.Component{
               <button onClick={this.showJoinChallenge} className="btn">Join a Challenge</button>
             </div>
             <div className="col m6 s12">
-              <h4>Friends</h4>
-                  <FriendForm handleFriendSearch={this.handleFriendSearch} searchedUser={this.state.searchedUser} />
+              <h4>Search for Friends</h4>
+                    <div className="friends">
+                      <p>List of friends goes here</p>
+                      <form onSubmit={this.handleSubmit}>
+                        <div className="input-field">
+                          <i className="material-icons">search</i>
+                          <input onChange={this.handleSearch} id="searchTerm" type="search" placeholder="search by username"/>
+
+                            <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                              <i className="material-icons right">search</i>
+                            </button>
+                        </div>
+                      </form>
+                      <ul>
+                        {friendList}
+                      </ul>
+                    </div>
             </div>
           </div>
         </div>
       </div>
       <AddHabitContainer show={this.state.showAddHabit} hide={this.hideAddHabit}/>
       <CreateChallengeContainer show={this.state.showCreateChallenge} hide={this.hideCreateChallenge}/>
-      <JoinChallengeContainer show={this.state.showJoinChallenge} hide={this.hideJoinChallenge}/>
+      <JoinChallengeContainer challengeCollection={this.props.challengeCollection} show={this.state.showJoinChallenge} hide={this.hideJoinChallenge}/>
+
     </div>
   )
-  }
-}
-
-class FriendForm extends React.Component{
-  constructor(props){
-    super(props)
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-
-  }
-  handleSubmit(e){
-    this.props.handleFriendSearch(this.state.searchTerm)
-    console.log('props', this.props.searchedUser);
-  }
-  handleSearch(e){
-    this.setState({searchTerm: e.target.value});
-  }
-  render(){
-    return(
-      <div className="friends">
-        <p>List of friends goes here</p>
-        <form onSubmit={this.handleSubmit}>
-          <div className="input-field">
-            <i className="material-icons">search</i>
-            <input onChange={this.handleSearch} id="searchTerm" type="search" placeholder="search for friends"/>
-
-              <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-                <i className="material-icons right">search</i>
-              </button>
-          </div>
-        </form>
-        <ul>
-          <li></li>
-          </ul>
-      </div>
-
-    )
   }
 }
 

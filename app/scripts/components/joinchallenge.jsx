@@ -10,14 +10,14 @@ var MaterializeModal = require('./materialize.jsx').MaterializeModal;
 class JoinChallengeContainer extends MaterializeModal {
   constructor(props){
     super(props);
-    var userId = User.current().get('objectId');
+    // var userId = User.current().get('objectId');
     var challengeCollection = new ChallengeCollection();
     this.handleSubmit = this.handleSubmit.bind(this);
     challengeCollection.fetch().then(()=>{this.setState({challengeCollection: challengeCollection})})
 
     this.state = {
-     challengeCollection: challengeCollection,
-     userId: userId
+     challengeCollection: challengeCollection
+    //  userId: userId
     }
 
   }
@@ -30,7 +30,7 @@ class JoinChallengeContainer extends MaterializeModal {
       return(
         <li key={challenge.cid} className="collection-item valign">
           <span>{challenge.get('name')}</span>
-          <a onClick={this.handleSubmit} className="btn waves-effect blue secondary-content">Join Challenge</a>
+          <a onClick={this.handleSubmit} className="btn waves-effect blue right">Join Challenge</a>
         </li>
       )
     })

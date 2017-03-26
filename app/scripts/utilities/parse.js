@@ -87,6 +87,7 @@ var ParseModel = Backbone.Model.extend({
 
 var ParseCollection = Backbone.Collection.extend({
   whereClause: {},
+  includeClause: '',
   sync: function(){
     var User = require('../models/user').User;
     var user = User.current();
@@ -115,17 +116,6 @@ var ParseCollection = Backbone.Collection.extend({
 
     return this;
   },
-  parseInclude: function(field, value, objectId) {
-   if(objectId) {
-     value = {
-       className: value,
-       objectId: objectId,
-       '__type': 'Pointer'
-     };
-   }
-   this.includeClause[field] = value;
-   return this;
- },
   url: function(){
     var url = this.baseUrl;
 
