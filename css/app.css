@@ -7725,20 +7725,23 @@ h1 {
 h3, h4, h5 {
   color: white; }
 
-.user-profile img {
+.profilepic {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  height: 100px;
-  resize: both; }
+  height: 100px; }
 
-.user-profile img {
-  display: inline-block; }
-
-.user-profile h3 {
+.username {
   display: inline-block;
-  font-size: 30px;
-  padding-left: 15px; }
+  color: white;
+  font-size: 25px;
+  padding-left: 15px;
+  padding-bottom: 10px; }
+
+.edit {
+  color: #B1DCDE;
+  padding-left: 5px;
+  font-size: 20px; }
 
 #habit-text {
   font-size: 22px; }
@@ -7755,11 +7758,13 @@ h3, h4, h5 {
   font-size: 15px; }
 
 .stars {
-  display: inline-block; }
+  display: inline-block;
+  color: green; }
 
 .navbar {
   background-color: #70BBBF; }
 
 label {
   font-size: 16px; }
+
 /*# sourceMappingURL=app.css.map */
