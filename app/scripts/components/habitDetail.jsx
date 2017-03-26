@@ -73,7 +73,8 @@ class HabitDetail extends React.Component {
 
     this.state = {
       'description': this.props.habit.get('description'),
-      'motivation': this.props.habit.get('motivation')
+      'motivation': this.props.habit.get('motivation'),
+      editing: false
     }
       console.log(this.state);
   }
@@ -102,6 +103,7 @@ class HabitDetail extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     this.props.saveHabit(this.state);
+    this.setState({editing: !this.state.editing})
   }
   addPocket(e){
    e.preventDefault();
@@ -125,19 +127,24 @@ class HabitDetail extends React.Component {
         )
       }
     })
+    var description = this.state.editing ? <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description}/> : <h5>{this.state.description}</h5>;
+    var motivation = this.state.editing ? <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation}/> : <h5>{this.state.motivation}</h5>
     return (
       <div className="habit-detail-screen">
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <div className="form-group habit-detail">
             <label htmlFor="description">Your habit:</label>
-            <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description} placeholder="Description"/>
+            {description}
           </div>
           <div className="form-group habit-detail">
             <label htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>
-            <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation} placeholder="Motivation"/>
+            {motivation}
           </div>
-            <input className="waves-effect btn orange" type="submit" value="Update Habit"/>
+            <button onClick={this.handleSubmit} className="waves-effect btn orange" type="submit">{this.state.editing ? 'Save' : 'Edit'}</button>
         </form>
+
+
+
           <br></br>
           <div className="row">
             <div className="col m6 s12">
