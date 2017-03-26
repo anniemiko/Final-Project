@@ -309,7 +309,8 @@ class HabitDetail extends React.Component {
 
     this.state = {
       'description': this.props.habit.get('description'),
-      'motivation': this.props.habit.get('motivation')
+      'motivation': this.props.habit.get('motivation'),
+      editing: false
     }
       console.log(this.state);
   }
@@ -338,6 +339,7 @@ class HabitDetail extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     this.props.saveHabit(this.state);
+    this.setState({editing: !this.state.editing})
   }
   addPocket(e){
    e.preventDefault();
@@ -361,19 +363,24 @@ class HabitDetail extends React.Component {
         )
       }
     })
+    var description = this.state.editing ? React.createElement("input", {onChange: this.handleDescriptionChange, type: "text", className: "form-control", name: "description", value: this.state.description}) : React.createElement("h5", null, this.state.description);
+    var motivation = this.state.editing ? React.createElement("input", {onChange: this.handleMotivationChange, type: "text", className: "form-control", name: "motivation", value: this.state.motivation}) : React.createElement("h5", null, this.state.motivation)
     return (
       React.createElement("div", {className: "habit-detail-screen"}, 
-        React.createElement("form", {onSubmit: this.handleSubmit}, 
+        React.createElement("form", null, 
           React.createElement("div", {className: "form-group habit-detail"}, 
             React.createElement("label", {htmlFor: "description"}, "Your habit:"), 
-            React.createElement("input", {onChange: this.handleDescriptionChange, type: "text", className: "form-control", name: "description", value: this.state.description, placeholder: "Description"})
+            description
           ), 
           React.createElement("div", {className: "form-group habit-detail"}, 
             React.createElement("label", {htmlFor: "motivation"}, "Your motivation for beginning/quitting this habit:"), 
-            React.createElement("input", {onChange: this.handleMotivationChange, type: "text", className: "form-control", name: "motivation", value: this.state.motivation, placeholder: "Motivation"})
+            motivation
           ), 
-            React.createElement("input", {className: "waves-effect btn orange", type: "submit", value: "Update Habit"})
+            React.createElement("button", {onClick: this.handleSubmit, className: "waves-effect btn orange", type: "submit"}, this.state.editing ? 'Save' : 'Edit')
         ), 
+
+
+
           React.createElement("br", null), 
           React.createElement("div", {className: "row"}, 
             React.createElement("div", {className: "col m6 s12"}, 
