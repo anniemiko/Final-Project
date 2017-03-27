@@ -56,7 +56,7 @@ var User = ParseModel.extend({
       if (!currentUser.get('sessionToken')){
         return false;
       }
-
+      
       return currentUser
     }
 });

@@ -10,19 +10,20 @@ var MaterializeModal = require('./materialize.jsx').MaterializeModal;
 class JoinChallengeContainer extends MaterializeModal {
   constructor(props){
     super(props);
-    // var userId = User.current().get('objectId');
+    var userId = User.current().get('objectId');
     var challengeCollection = new ChallengeCollection();
     this.handleSubmit = this.handleSubmit.bind(this);
+    challengeCollection.whereClause = {};
     challengeCollection.fetch().then(()=>{this.setState({challengeCollection: challengeCollection})})
 
     this.state = {
-     challengeCollection: challengeCollection
-    //  userId: userId
+     challengeCollection: challengeCollection,
+     userId: userId
     }
-
   }
   handleSubmit(challenge){
-    // challenge.include('participants', 'Challenge', this.state.challengeId);
+    console.log('challenge', challenge.get('objectId'));
+    challenge.save('participants', 'Challenge', this.state.userId);
   }
   render(){
     console.log('challenge collection', this.state.challengeCollection);

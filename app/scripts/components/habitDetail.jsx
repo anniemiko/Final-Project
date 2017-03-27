@@ -8,6 +8,8 @@ var ParseCollection = require('../utilities/parse').ParseCollection;
 var StarCollection = require('../models/stars.js').StarCollection;
 var BaseLayout = require('../layouts/base-layout.jsx').BaseLayout;
 
+const SERVER_URL = "http://localhost:3000";
+
 class HabitDetailContainer extends React.Component{
   constructor(props){
     super(props)
@@ -19,6 +21,7 @@ class HabitDetailContainer extends React.Component{
     habit.set('objectId', props.id);
     habit.fetch().then(() => {
       this.setState({habit: habit});
+      this.forceUpdate();
     });
 
     this.saveHabit = this.saveHabit.bind(this);
@@ -70,6 +73,8 @@ class HabitDetail extends React.Component {
     this.handleMotivationChange = this.handleMotivationChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addPocket = this.addPocket.bind(this);
+    this.addPocketLinks = this.addPocketLinks.bind(this);
 
     this.state = {
       'description': this.props.habit.get('description'),
@@ -117,9 +122,15 @@ class HabitDetail extends React.Component {
      })
    }
  }
+ addPocketLinks(){
+   var tag = this.state.searchTerm;
+   console.log(tag);
+   var access_token = localStorage.getItem('pocket_access_token');
+   $.get(`${SERVER_URL}/gett?access_token=${access_token}&tag=${tag}`).then(response => {
+     console.log(response);
+   })
+ }
   render(){
-      // console.log(habit.get('objectId'));
-    // console.log('habitDetail collection', this.props.starCollection);
     var starList = this.props.starCollection.map((star)=>{
       if (star.attributes.habitCheck.objectId == this.props.habitId) {
         return(
@@ -128,7 +139,12 @@ class HabitDetail extends React.Component {
       }
     })
     var description = this.state.editing ? <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description}/> : <h5>{this.state.description}</h5>;
-    var motivation = this.state.editing ? <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation}/> : <h5>{this.state.motivation}</h5>
+    var motivation = this.state.editing ? <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation}/> : <h5>{this.state.motivation}</h5>;
+    var pocket =  !localStorage.getItem('pocket_access_token') ?
+        <button onClick={this.addPocket} className="waves-effect btn red">Connect to Pocket</button>
+        : <div><label htmlFor="links">Search Pocket articles for term:</label>
+      <input onChange={(e)=>{e.preventDefault(); this.setState({searchTerm: e.target.value})}} type="text" name="links"/>
+          <button onClick={this.addPocketLinks} className="waves-effect btn red">Add Pocket links to habit</button></div>;
     return (
       <div className="habit-detail-screen">
         <form>
@@ -148,7 +164,7 @@ class HabitDetail extends React.Component {
           <br></br>
           <div className="row">
             <div className="col m6 s12">
-                <button onClick={this.addPocket} className="waves-effect btn red">Add Pocket links</button>
+                {pocket}
             </div>
             <div className="col m6 s12">
               <h4>Habit Chain</h4>

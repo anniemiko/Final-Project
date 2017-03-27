@@ -35,7 +35,6 @@ class HabitContainer extends React.Component{
     this.state = {
       collection: habitCollection,
       userCollection: userCollection,
-      challengeCollection: challengeCollection,
       friends: []
     }
   }
@@ -140,10 +139,19 @@ class HabitList extends React.Component{
     this.setState({searchTerm: e.target.value});
   }
   addFriend(friend){
+    var user = User.current();
     var userFriends = User.current().get('friends');
-    console.log('userFriends1', userFriends);
+
     userFriends.push(friend);
-    console.log('userFriends2', userFriends);
+
+    user.set({
+      'friends': userFriends
+    });
+
+    console.log('user', user);
+
+    user.save();
+    // console.log('userFriends', userFriends);
   }
   render(){
     var habitList = this.props.collection.map((habit)=>{
@@ -214,7 +222,7 @@ class HabitList extends React.Component{
       </div>
       <AddHabitContainer show={this.state.showAddHabit} hide={this.hideAddHabit}/>
       <CreateChallengeContainer show={this.state.showCreateChallenge} hide={this.hideCreateChallenge}/>
-      <JoinChallengeContainer challengeCollection={this.props.challengeCollection} show={this.state.showJoinChallenge} hide={this.hideJoinChallenge}/>
+      <JoinChallengeContainer show={this.state.showJoinChallenge} hide={this.hideJoinChallenge}/>
 
     </div>
   )
