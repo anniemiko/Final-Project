@@ -159,8 +159,8 @@ class HabitList extends React.Component{
       return(
         <li key={habit.cid} className="collection-item valign">
           <form action="#">
-            <input onChange={()=> this.checkHabit(habit.get('objectId'))} type="checkbox" className="filled-in" id={habit.get('objectId')}/>
-            <label htmlFor={habit.get('objectId')} className="left-align" id="habit-text">{habit.get('description')}</label>
+            <input onChange={()=> this.checkHabit(habit.get('objectId'))} type="checkbox" className="filled-in col s1" id={habit.get('objectId')}/>
+            <label htmlFor={habit.get('objectId')} className="left-align col s6" id="habit-text">{habit.get('description')}</label>
           </form>
           <a href={"#habitdetail/" + habit.get('objectId')} className="btn waves-effect blue ">
               View Habit
@@ -173,7 +173,7 @@ class HabitList extends React.Component{
       console.log(friend);
       return(
         <li key={index} className="collection-item">
-          <img src={friend.get('pic').url} className="circle profilepic"/>
+          <img src={friend.get('pic').url || 'images/avatar-cat.jpg'} className="circle profilepic"/>
           <h6>{friend.get('username')}</h6>
           <button onClick={()=>this.addFriend(friend)} className="btn waves-effect orange secondary-content top">Add friend</button>
         </li>

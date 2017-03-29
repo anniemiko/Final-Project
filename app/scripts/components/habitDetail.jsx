@@ -167,7 +167,7 @@ class HabitDetail extends React.Component {
           <button onClick={this.addPocketLinks} className="waves-effect btn red">Add Pocket links to habit</button></div>;
     var title = !this.state.articles ? <p>Add an article</p> : this.state.articles.map((article)=>{
       return (
-        <li key={article.item_id ? article.item_id : "" } className="collection-item articles">{article.given_title ? article.given_title : ""}</li>
+        <li key={article.item_id ? article.item_id : "" } className="collection-item articles">{article.given_title ? article.given_title : article.resolved_title}</li>
       )
   });
     return (
