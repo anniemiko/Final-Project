@@ -1,5 +1,6 @@
 var React = require('react');
 var Backbone = require('backbone');
+var Materialize = require('materialize-css');
 
 var BaseLayout = require('../layouts/base-layout.jsx').BaseLayout;
 var User = require('../models/user.js').User;

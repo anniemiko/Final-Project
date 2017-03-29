@@ -20,7 +20,8 @@ class JoinChallengeContainer extends MaterializeModal {
     this.state = {
      challengeCollection: challengeCollection,
      user: user,
-     userId: userId
+     userId: userId,
+     participants: []
     }
     console.log('user', this.state.user);
   }
@@ -33,16 +34,20 @@ class JoinChallengeContainer extends MaterializeModal {
        {"__type":"Pointer", "className":"_User", "objectId": this.state.userId}
       ]}
     })
-    challenge.add('participants', 'Challenge', this.state.user);
+
+    var participants = challenge.get('participants') || [];
+    participants.push({"__type":"Pointer","className":"_User","objectId":User.current().get('objectId')});
+
+    challenge.set({participants});
     challenge.save();
   }
   render(){
     console.log('challenge collection', this.state.challengeCollection);
     var challengeList = this.state.challengeCollection.map((challenge)=>{
       return(
-        <li key={challenge.cid} className="collection-item valign">
+        <li key={challenge.cid} className="collection-item valign col s12">
           <span>{challenge.get('name')}</span>
-          <a onClick={()=>this.handleSubmit(challenge)} type="submit" className="btn waves-effect blue right">Join Challenge</a>
+          <a onClick={()=>this.handleSubmit(challenge)} type="submit" className="btn waves-effect blue right col s4">Join Challenge</a>
         </li>
       )
     })

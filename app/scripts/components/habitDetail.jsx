@@ -1,4 +1,5 @@
 var React = require('react');
+var Materialize = require('materialize-css');
 
 var Habit = require('../models/habits.js').Habit;
 var HabitCollection = require('../models/habits.js').HabitCollection;
@@ -162,12 +163,12 @@ class HabitDetail extends React.Component {
     var motivation = this.state.editing ? <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation}/> : <h5>{this.state.motivation}</h5>;
     var pocket =  !localStorage.getItem('pocket_access_token') ?
         <button onClick={this.addPocket} className="waves-effect btn red">Connect to Pocket</button>
-        : <div><label htmlFor="links">Search Pocket articles for term:</label>
+        : <div><label className="searchAdd"htmlFor="links">Search Pocket articles for tag:</label>
       <input onChange={(e)=>{e.preventDefault(); this.setState({searchTerm: e.target.value})}} type="text" name="links"/>
           <button onClick={this.addPocketLinks} className="waves-effect btn red">Add Pocket links to habit</button></div>;
     var title = !this.state.articles ? <p>Add an article</p> : this.state.articles.map((article)=>{
       return (
-        <li key={article.item_id ? article.item_id : "" } className="collection-item articles">{article.given_title ? article.given_title : article.resolved_title}</li>
+        <li key={article.item_id ? article.item_id : "" } className="collection-item articles"><a href={article.given_url ? article.given_url : article.resolved_url}><h6>{article.given_title ? article.given_title : article.resolved_title}</h6></a></li>
       )
   });
     return (

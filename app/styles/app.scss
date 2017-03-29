@@ -1,6 +1,6 @@
 
 // Bootstrap Variables
-$icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
+// $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 
 // Import Bootstrap
 // @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
@@ -103,6 +103,15 @@ h3, h4, h5 {
 .stars {
   display: inline-block;
   color: green;
+}
+
+.searchAdd{
+  color: #24282F;
+}
+
+.articles h6{
+  color: white;
+  padding-top: 7px;
 }
 
 // ** styling for navbar ** //

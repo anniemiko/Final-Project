@@ -32,7 +32,7 @@ class SignupForm extends React.Component {
     super(props);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePicChange = this.handlePicChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,7 +40,6 @@ class SignupForm extends React.Component {
     this.state = {
       username: '',
       email: '',
-      phone: '',
       password: '',
       pic: {}
     };
@@ -51,9 +50,7 @@ class SignupForm extends React.Component {
   handleEmailChange(e){
     this.setState({email: e.target.value});
   }
-  handlePhoneChange(e){
-    this.setState({phone: e.target.value});
-  }
+
   handlePasswordChange(e){
     this.setState({password: e.target.value})
   }
@@ -102,10 +99,7 @@ class SignupForm extends React.Component {
               <input onChange={this.handleEmailChange} className="form-control" name="email" id="email" type="text" placeholder="Enter email here" />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="phone">Enter your phone number to get text reminders</label>
-              <input onChange={this.handlePhoneChange} className="form-control" name="phone" id="phone" type="number" placeholder="Enter phone number here" />
-            </div>
+
 
             <div className="form-group">
               <label htmlFor="password">Create password</label>

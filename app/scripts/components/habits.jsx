@@ -1,6 +1,8 @@
 var React = require('react');
 var moment = require('moment');
 var _ = require('underscore');
+var Materialize = require('materialize-css');
+require('../../../node_modules/materialize-css/js/tooltip.js');
 
 var Habit = require('../models/habits.js').Habit;
 var HabitCollection = require('../models/habits.js').HabitCollection;
@@ -63,7 +65,7 @@ class HabitContainer extends React.Component{
               <div className="col s3">
                 <img src={profilePic} alt={User.current().get('pic').name} className="circle profilepic"/>
                   <span className="title username">{User.current().get('username')}</span>
-                <a href="#" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Edit your profile"><i className="material-icons edit">mode_edit</i></a>
+                <a href="#!" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Edit your profile"><i className="material-icons edit">mode_edit</i></a>
               </div>
             </div>
             <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} handleFriendSearch={this.handleFriendSearch} friends={this.state.friends} challengeCollection={this.state.challengeCollection}/>
