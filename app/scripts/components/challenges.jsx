@@ -36,7 +36,7 @@ class ChallengesContainer extends React.Component{
     if(parts) {
       list = parts.map(function(per){
         return (
-          <li key={per.objectId} className="collection-item valign">
+          <li key={per.objectId} className="collection-item valign participants">
             <h5>{per.username}</h5>
           </li>
         )
