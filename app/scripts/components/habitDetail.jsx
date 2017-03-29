@@ -25,6 +25,7 @@ class HabitDetailContainer extends React.Component{
     });
 
     this.saveHabit = this.saveHabit.bind(this);
+    this.saveLinks = this.saveLinks.bind(this);
 
     starCollection.urlSetter(habitId);
     starCollection.fetch().then(()=>{
@@ -37,13 +38,14 @@ class HabitDetailContainer extends React.Component{
       starCollection: starCollection,
       habitId: habitId
     }
+    console.log('state', this.state);
   }
   saveHabit(formData){
     var habit = this.state.habit;
     var user = User.current();
     habit.set({
       'description': formData.description,
-      'motivation': formData.motivation
+      'motivation': formData.motivation,
     });
 
     habit.setPointer('owner', '_User', user.get('objectId'));
@@ -51,7 +53,16 @@ class HabitDetailContainer extends React.Component{
     habit.save().then(()=>{
       this.setState({habit: habit})
     });
-    console.log(habit);
+    console.log('saveHabit',habit);
+  }
+  saveLinks(pocketList){
+    var habit = this.state.habit;
+    habit.set({
+      'articles': pocketList
+    })
+    habit.save().then(()=>{
+      this.setState({habit: habit})
+    });
   }
   render(){
     console.log('habit', this.state.habit);
@@ -60,7 +71,7 @@ class HabitDetailContainer extends React.Component{
       <BaseLayout>
         <div className="container">
           <h3>Habit details</h3>
-          <HabitDetail saveHabit={this.saveHabit} habit={this.state.habit} starCollection={this.state.starCollection} habitId={this.state.habitId}/>
+          <HabitDetail saveHabit={this.saveHabit} saveLinks={this.saveLinks} habit={this.state.habit} starCollection={this.state.starCollection} habitId={this.state.habitId}/>
         </div>
       </BaseLayout>
     )
@@ -79,9 +90,11 @@ class HabitDetail extends React.Component {
     this.state = {
       'description': this.props.habit.get('description'),
       'motivation': this.props.habit.get('motivation'),
+      'articles': this.props.habit.get('articles'),
       editing: false
     }
-      console.log(this.state);
+    console.log('props.habit', this.props.habit);
+      console.log('this.state', this.state);
   }
   componentWillReceiveProps(newProps){
 
@@ -95,7 +108,8 @@ class HabitDetail extends React.Component {
 
    this.setState({
      description: newProps.habit.get('description'),
-     motivation: newProps.habit.get('motivation')
+     motivation: newProps.habit.get('motivation'),
+     articles: newProps.habit.get('articles')
    })
 
 }
@@ -128,7 +142,13 @@ class HabitDetail extends React.Component {
    var access_token = localStorage.getItem('pocket_access_token');
    $.get(`${SERVER_URL}/gett?access_token=${access_token}&tag=${tag}`).then(response => {
      console.log(response);
+     var obj = response.list;
+     console.log('values', Object.values(obj));
+     var pocketList = Object.values(obj).map(function (key) { return key });
+     console.log(pocketList);
+     this.props.saveLinks(pocketList);
    })
+
  }
   render(){
     var starList = this.props.starCollection.map((star)=>{
@@ -145,6 +165,11 @@ class HabitDetail extends React.Component {
         : <div><label htmlFor="links">Search Pocket articles for term:</label>
       <input onChange={(e)=>{e.preventDefault(); this.setState({searchTerm: e.target.value})}} type="text" name="links"/>
           <button onClick={this.addPocketLinks} className="waves-effect btn red">Add Pocket links to habit</button></div>;
+    var title = !this.state.articles ? <p>Add an article</p> : this.state.articles.map((article)=>{
+      return (
+        <li key={article.item_id ? article.item_id : "" } className="collection-item articles">{article.given_title ? article.given_title : ""}</li>
+      )
+  });
     return (
       <div className="habit-detail-screen">
         <form>
@@ -164,6 +189,8 @@ class HabitDetail extends React.Component {
           <br></br>
           <div className="row">
             <div className="col m6 s12">
+              <h4>Related Articles</h4>
+              <ul>{title}</ul>
                 {pocket}
             </div>
             <div className="col m6 s12">

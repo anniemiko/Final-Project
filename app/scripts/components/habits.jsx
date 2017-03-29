@@ -26,7 +26,6 @@ class HabitContainer extends React.Component{
     this.deleteHabit = this.deleteHabit.bind(this);
     this.handleFriendSearch = _.debounce(this.handleFriendSearch, 300).bind(this)
 
-    // challengeCollection.fetch().then(()=>{this.setState({challengeCollection: challengeCollection})})
 
     userCollection.fetch().then(()=>{this.setState({userCollection: userCollection}), console.log('drinks', userCollection)});
 
@@ -136,6 +135,8 @@ class HabitList extends React.Component{
     console.log('props', this.props.friends);
   }
   handleSearch(e){
+    this.setState({showCreateChallenge: false});
+    this.setState({showJoinChallenge: false});
     this.setState({searchTerm: e.target.value});
   }
   addFriend(friend){
