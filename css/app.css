@@ -7761,9 +7761,17 @@ h3, h4, h5 {
   display: inline-block;
   color: green; }
 
+.searchAdd {
+  color: #24282F; }
+
+.articles h6 {
+  color: white;
+  padding-top: 7px; }
+
 .navbar {
   background-color: #70BBBF; }
 
 label {
   font-size: 16px; }
+
 /*# sourceMappingURL=app.css.map */
