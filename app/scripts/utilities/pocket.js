@@ -8,7 +8,7 @@ var $ = require('jquery');
 //   });
 
 //** Step 2 - Get Request Token **//
-var url = 'http://localhost:3000/v3/oauth/request?habitId=WoKCDu2Xwq';
+var url = 'https://http://localhost:3000/v3/oauth/request?habitId=WoKCDu2Xwq';
 
 $.get(url).then((code)=> {
   console.log(code);

@@ -41,9 +41,11 @@ class BaseLayout extends React.Component{
           </ul>
         </div>
       </nav>
-
-            {this.props.children}
-
+      <div className="background">
+        <div className="container">
+              {this.props.children}
+        </div>
+      </div>
     </div>
   )
 }

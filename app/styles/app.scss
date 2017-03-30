@@ -21,7 +21,13 @@ img {
 body {
   background-color: #00838f;
 }
-
+.background{
+  background-image: url(images/woodgrain.jpg);
+  background-size: cover;
+}
+.container {
+  background-color: #00838f;
+}
 // ** styling for splash page ** //
 nav a{
   color: blue;
@@ -85,8 +91,23 @@ h3, h4, h5 {
   font-size: 22px;
 }
 
-.participants h5 {
-  color: #24282F;
+.check {
+  color: #00FC75;
+  padding-left: 18px;
+}
+
+.check-off {
+  color: white;
+  font-size: 20px;
+  padding: 15px;
+}
+.others {
+  background-color: #70BBBF;
+  color: #00838F;
+}
+.search {
+  font-size: 30px;
+  padding-right: 10px;
 }
 // ** styling for habit detail page ** //
 .habit-detail label {
@@ -116,7 +137,13 @@ h3, h4, h5 {
   color: white;
   padding-top: 7px;
 }
-
+// ** styling for challenges page ** //
+.participants h6 {
+  color: #24282F;
+}
+.challenge {
+  color: #009587;
+}
 // ** styling for navbar ** //
 .navbar {
   background-color: #70BBBF;

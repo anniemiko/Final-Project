@@ -59,7 +59,6 @@ class HabitContainer extends React.Component{
     var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg'
     return (
       <BaseLayout>
-        <div className="container">
           <div className="col s12">
             <div className="row">
               <div className="col s3">
@@ -70,7 +69,6 @@ class HabitContainer extends React.Component{
             </div>
             <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} handleFriendSearch={this.handleFriendSearch} friends={this.state.friends} challengeCollection={this.state.challengeCollection}/>
           </div>
-        </div>
       </BaseLayout>
   )
   }
@@ -164,7 +162,7 @@ class HabitList extends React.Component{
             <input onChange={()=> this.checkHabit(habit.get('objectId'))} type="checkbox" className="filled-in col s1" id={habit.get('objectId')}/>
             <label htmlFor={habit.get('objectId')} className="left-align col s6" id="habit-text">{habit.get('description')}</label>
           </form>
-          <a href={"#habitdetail/" + habit.get('objectId')} className="btn waves-effect blue ">
+          <a href={"#habitdetail/" + habit.get('objectId')} className="btn waves-effect">
               View Habit
             </a>
             <a onClick={(e)=>{e.preventDefault(); this.props.deleteHabit(habit)}} className="btn waves-effect red secondary-content">Delete Habit</a>
@@ -177,7 +175,7 @@ class HabitList extends React.Component{
         <li key={index} className="collection-item">
           <img src={friend.get('pic').url || 'images/avatar-cat.jpg'} className="circle profilepic"/>
           <h6>{friend.get('username')}</h6>
-          <button onClick={()=>this.addFriend(friend)} className="btn waves-effect orange secondary-content top">Add friend</button>
+          <button onClick={()=>this.addFriend(friend)} className="btn waves-effect orange right">Add friend</button>
         </li>
       )
     })
@@ -186,28 +184,26 @@ class HabitList extends React.Component{
       <div className="habits">
         <div className="habit-list">
           <h3>Habits</h3>
-          <button onClick={this.showAddHabit} className="btn">Add Habit</button>
+          <i className="material-icons check">offline_pin</i><span className="check-off">Check off your habit every day you complete it!</span>
           <ul className="collection valign">
             {habitList}
           </ul>
+          <button onClick={this.showAddHabit} className="btn blue center">Add a new Habit</button>
         </div>
         <div className="connect">
-          <h3 className="center">Connect with Others</h3>
+          <h4 className="center others">Connect with Others</h4>
           <div className="row">
             <div className="col m6 s12">
               <h4>Group challenge!</h4>
-              <p>List of challenges user is participating in</p>
               <button onClick={this.showCreateChallenge} className="btn">Create a Challenge</button>
 
               <button onClick={this.showJoinChallenge} className="btn">Join a Challenge</button>
             </div>
             <div className="col m6 s12">
-              <h4>Search for Friends</h4>
+              <h4><i className="material-icons search">search</i>Search for Friends</h4>
                     <div className="friends">
-                      <p>List of friends goes here</p>
                       <form onSubmit={this.handleSubmit}>
                         <div className="input-field">
-                          <i className="material-icons">search</i>
                           <input onChange={this.handleSearch} id="searchTerm" type="search" placeholder="search by username"/>
 
                             <button className="btn waves-effect waves-light" type="submit" name="action">Submit

@@ -70,10 +70,8 @@ class HabitDetailContainer extends React.Component{
     var habit = this.state.habit;
     return (
       <BaseLayout>
-        <div className="container">
           <h3>Habit details</h3>
           <HabitDetail saveHabit={this.saveHabit} saveLinks={this.saveLinks} habit={this.state.habit} starCollection={this.state.starCollection} habitId={this.state.habitId}/>
-        </div>
       </BaseLayout>
     )
   }

@@ -21,15 +21,14 @@ render(){
   var friendList = this.state.friends.map((friend, index)=>{
     console.log('friend', friend);
     return(
-      <li key={index} className="collection-item">
-        <img src={friend.pic.url} className="circle profilepic"/>
+      <li key={index} className="collection-item col s3">
+        <img src={friend.pic.url || 'images/avatar-cat.jpg'} className="circle profilepic"/>
         <h4>{friend.username}</h4>
       </li>
     )
   })
   return (
       <BaseLayout>
-        <div className="container">
           <div className="col s12">
             <div className="row">
               <div className="col s3">
@@ -43,7 +42,6 @@ render(){
               </ul>
             </div>
           </div>
-        </div>
       </BaseLayout>
     )
   }
