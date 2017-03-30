@@ -28,21 +28,23 @@ body {
   padding: 35px;
 }
 // ** styling for splash page ** //
-nav a{
-  color: blue;
-  float: right;
-  display: inline-block;
-}
-nav h4{
-  color: lightgrey;
-  display: inline-block;
-}
+// nav a{
+//   color: blue;
+//   float: right;
+//   display: inline-block;
+// }
+// nav h4{
+//   color: lightgrey;
+//   display: inline-block;
+// }
 
 .banner{
   background-image: url('../images/lavender-trees.jpg');
   background-size: cover;
 }
-
+.header {
+  padding-top: 40px;
+}
 h1{
   color: white;
   font-size: 70px;
@@ -62,14 +64,23 @@ h1{
   background-color: #00838f;
 }
 
+.front-articles {
+  padding: 20px;
+  padding-bottom: 60px;
+}
+
 // ** styling for aout page ** //
 .about-heading {
   color: white;
   font-size: 20px;
 }
-.about-p{
+.about-p {
   color: #C7D3DD;
   font-size: 16px;
+}
+
+.about-box{
+  margin: 10px;
 }
 // ** styling for habits page ** //
 
@@ -114,6 +125,9 @@ h3, h4, h5 {
 }
 .habit-list{
   margin-top: 20px;
+}
+#habit-list{
+  padding: 10px 20px;
 }
 .others {
   background-color: #039be5;
@@ -170,7 +184,7 @@ h3, h4, h5 {
   font-size: 20px;
   line-height: 1.5;
   color: white;
-  padding-top: 10px;
+  padding: 15px;
 }
 
 // ** styling for challenges page ** //
@@ -180,6 +194,15 @@ h3, h4, h5 {
 .challenge {
   color: #009587;
 }
+
+// ** styling for friends page ** //
+.friend-username {
+  text-align: center;
+}
+.profile-pic{
+  text-align: center;
+}
+
 // ** styling for navbar ** //
 .navbar {
   background-color: #70BBBF;

@@ -165,7 +165,7 @@ class HabitList extends React.Component{
   render(){
     var habitList = this.props.collection.map((habit)=>{
       return(
-        <li key={habit.cid} className="collection-item valign">
+        <li key={habit.cid} className="collection-item valign" id="habit-list">
           <form action="#">
             <input onChange={()=> this.checkHabit(habit.get('objectId'))} type="checkbox" className="filled-in col s1" id={habit.get('objectId')}/>
             <label htmlFor={habit.get('objectId')} className="left-align col s6" id="habit-text">{habit.get('description')}</label>
@@ -183,7 +183,7 @@ class HabitList extends React.Component{
         <h6 className="friend-name">{this.props.friend.username}</h6>
       </div>
       <div className="col s3">
-        <button onClick={()=>this.addFriend(this.props.friend)} className="btn waves-effect orange right add-friend">Add friend</button>
+        <a href="#friends"><button onClick={()=>this.addFriend(this.props.friend)} className="btn waves-effect orange right add-friend">Add friend</button></a>
       </div>
       </div>
 

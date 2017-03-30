@@ -84,7 +84,7 @@ class ChallengesContainer extends React.Component{
     })
     return (
       <BaseLayout>
-          <h3>Challenges</h3>
+          <h3 className="center">Challenges</h3>
           <ul className="collection valign collapsible" data-collapsible="accordion">
             {challenges}
           </ul>

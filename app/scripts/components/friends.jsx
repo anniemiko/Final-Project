@@ -10,7 +10,7 @@ class FriendsContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      
+
     }
   }
   componentWillMount(){
@@ -30,9 +30,9 @@ render(){
   var friendList = this.state.userFriends ? this.state.userFriends.map((friend, index)=>{
     console.log('friend', friend);
     return(
-      <li key={index} className="collection-item col s3">
+      <li key={index} className="collection-item col s3 center">
         <img src={friend.pic.url || 'images/avatar-cat.jpg'} className="circle profilepic"/>
-        <h5>{friend.username}</h5>
+        <h5 className="friend-username">{friend.username}</h5>
       </li>
     )
   }) : <div>you have no friends</div>
@@ -43,6 +43,9 @@ render(){
               <div className="col s3">
                 <img src={profilePic} alt={User.current().get('pic').name} className="circle profilepic"/>
                   <span className="title username">{User.current().get('username')}</span>
+              </div>
+              <div className="col s9 center">
+                <h3>Your Friends</h3>
               </div>
             </div>
             <div className="row">
