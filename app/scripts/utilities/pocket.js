@@ -8,8 +8,8 @@ var $ = require('jquery');
 //   });
 
 //** Step 2 - Get Request Token **//
-var url = 'https://http://localhost:3000/v3/oauth/request?habitId=WoKCDu2Xwq';
-
+var url = 'https://habit-proxy-server.herokuapp.com/v3/oauth/request?habitId=WoKCDu2Xwq';
+// http://localhost:3000
 $.get(url).then((code)=> {
   console.log(code);
   localStorage.setItem('pocket', JSON.stringify(code));
@@ -22,7 +22,7 @@ window.open('https://getpocket.com/auth/authorize?request_token=' + code + '&red
 
 // ** Step 5 Convert request token into Pocket access token **//
 
-var urlAccess = 'http://localhost:3000/v3/oauth/authorize';
+var urlAccess = 'https://habit-proxy-server.herokuapp.com/v3/oauth/authorize';
 $.get(urlAccess).then((access)=> {
   console.log(access);
   localStorage.setItem('pocketaccess', JSON.stringify(access));

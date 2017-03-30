@@ -23,10 +23,9 @@ class JoinChallengeContainer extends MaterializeModal {
      userId: userId,
      participants: []
     }
-    console.log('user', this.state.user);
   }
   handleSubmit(challenge){
-    console.log('challenge', challenge);
+    // console.log('challenge', challenge);
 
     challenge.set({'members' : {
       "__op":"AddRelation",
@@ -42,7 +41,7 @@ class JoinChallengeContainer extends MaterializeModal {
     challenge.save();
   }
   render(){
-    console.log('challenge collection', this.state.challengeCollection);
+    // console.log('challenge collection', this.state.challengeCollection);
     var challengeList = this.state.challengeCollection.map((challenge)=>{
       return(
         <li key={challenge.cid} className="collection-item valign col s12">

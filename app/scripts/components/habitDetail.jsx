@@ -153,7 +153,7 @@ class HabitDetail extends React.Component {
     var starList = this.props.starCollection.map((star)=>{
       if (star.attributes.habitCheck.objectId == this.props.habitId) {
         return(
-          <li key={star.cid} className="collection-item stars"><i className="medium material-icons">stars</i><p className="stars-list">{star.get('timestamp')}</p></li>
+          <li key={star.cid} className="collection-item star"><i className="medium material-icons">stars</i><p className="stars-list">{star.get('timestamp')}</p></li>
         )
       }
     })
@@ -194,7 +194,7 @@ class HabitDetail extends React.Component {
             </div>
             <div className="col m6 s12">
               <h4>Habit Chain</h4>
-                <ul className="collection valign">
+                <ul className="collection valign stars">
                   {starList}
                 </ul>
             </div>
