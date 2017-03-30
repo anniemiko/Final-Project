@@ -4,29 +4,38 @@ var Materialize = require('materialize-css');
 
 var BaseLayout = require('../layouts/base-layout.jsx').BaseLayout;
 var User = require('../models/user.js').User;
+var UserCollection = require('../models/user.js').UserCollection;
 
 class FriendsContainer extends React.Component{
   constructor(props){
     super(props)
-    var test = User.current();
-    console.log('test', test);
-    var friends = User.current().get('friends');
     this.state = {
-      friends
+      
     }
-    console.log('friends', friends);
-}
+  }
+  componentWillMount(){
+    var user = User.current();
+    var userId = user.get('objectId')
+    var userCollection = new UserCollection();
+    userCollection.whereClause = {};
+    userCollection.fetch().then( () => {
+      var userModel = userCollection.get(userId);
+      var userFriends = userModel.get('friends');
+      this.setState({userFriends: userFriends})
+    });
+
+  }
 render(){
   var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg';
-  var friendList = this.state.friends.map((friend, index)=>{
+  var friendList = this.state.userFriends ? this.state.userFriends.map((friend, index)=>{
     console.log('friend', friend);
     return(
       <li key={index} className="collection-item col s3">
         <img src={friend.pic.url || 'images/avatar-cat.jpg'} className="circle profilepic"/>
-        <h4>{friend.username}</h4>
+        <h5>{friend.username}</h5>
       </li>
     )
-  })
+  }) : <div>you have no friends</div>
   return (
       <BaseLayout>
           <div className="col s12">

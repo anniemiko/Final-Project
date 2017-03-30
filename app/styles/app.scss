@@ -19,14 +19,13 @@ img {
 }
 
 body {
-  background-color: #00838f;
-}
-.background{
-  background-image: url(images/woodgrain.jpg);
+  background-image: url("../images/woodgrain.jpg");
   background-size: cover;
 }
-.container {
+
+.main {
   background-color: #00838f;
+  padding: 35px;
 }
 // ** styling for splash page ** //
 nav a{
@@ -60,8 +59,18 @@ h1{
 
 .habit-info{
   color: white;
+  background-color: #00838f;
 }
 
+// ** styling for aout page ** //
+.about-heading {
+  color: white;
+  font-size: 20px;
+}
+.about-p{
+  color: #C7D3DD;
+  font-size: 16px;
+}
 // ** styling for habits page ** //
 
 h3, h4, h5 {
@@ -89,29 +98,41 @@ h3, h4, h5 {
 
 #habit-text {
   font-size: 22px;
+  color: #006064;
 }
 
 .check {
-  color: #00FC75;
-  padding-left: 18px;
+  color: #76ff03;
+  font-size: 32px;
+  padding-left: 16px;
+  vertical-align: bottom;
 }
-
 .check-off {
   color: white;
   font-size: 20px;
   padding: 15px;
 }
+.habit-list{
+  margin-top: 20px;
+}
 .others {
-  background-color: #70BBBF;
-  color: #00838F;
+  background-color: #039be5;
+  color: white;
 }
 .search {
   font-size: 30px;
   padding-right: 10px;
 }
+.friend-name{
+  color: white;
+  font-size: 18px;
+}
+.add-friend {
+  margin-top: 30px;
+}
 // ** styling for habit detail page ** //
 .habit-detail label {
-  color: yellow;
+  color: #b2ff59;
   font-size: 18px;
 }
 
@@ -120,23 +141,38 @@ h3, h4, h5 {
   font-size: 18px;
 }
 
+.stars{
+  background-color: white;
+}
+.collection .collection-item {
+  padding: 0px;
+}
 .stars-list {
-  font-size: 15px;
+  font-size: 10px;
+  text-align: center;
 }
 
 .star {
   display: inline-block;
-  color: green;
+  color: #64dd17;
+  padding: 1px;
 }
 
 .searchAdd{
-  color: #24282F;
+  color: #E3E3E3;
+  font-size: 17px;
+}
+.search{
+  color: #E3E3E3;
+  vertical-align: bottom;
+}
+.articles h6{
+  font-size: 20px;
+  line-height: 1.5;
+  color: white;
+  padding-top: 10px;
 }
 
-.articles h6{
-  color: white;
-  padding-top: 7px;
-}
 // ** styling for challenges page ** //
 .participants h6 {
   color: #24282F;
@@ -149,9 +185,29 @@ h3, h4, h5 {
   background-color: #70BBBF;
 }
 
+.button-collapse {
+  color: #fff;
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  i {
+    font-size: 32px;
+  }
+}
+
 // ** styling for modals ** //
 
 label {
   font-size: 16px;
+}
 
+// ** styling for footer ** //
+.footer {
+  background-color: #70BBBF;
+  padding: 7px;
+}
+.copyright {
+  color: #f1f8e9;
+  font-size: 14px;
+  padding-left: 10px;
 }

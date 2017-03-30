@@ -8,6 +8,7 @@ var LoginContainer = require('./components/login.jsx').LoginContainer;
 var User = require('./models/user').User;
 var HabitContainer = require('./components/habits.jsx').HabitContainer;
 var HabitDetailContainer = require('./components/habitDetail.jsx').HabitDetailContainer;
+var AboutContainer = require('./components/about.jsx').AboutContainer;
 var FriendsContainer = require('./components/friends.jsx').FriendsContainer;
 var ChallengesContainer = require('./components/challenges.jsx').ChallengesContainer;
 
@@ -15,6 +16,7 @@ var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'index',
     'home': 'index',
+    'about': 'about',
     'habits': 'habits',
     'friends': 'friends',
     'challenges': 'challenges',
@@ -25,6 +27,12 @@ var AppRouter = Backbone.Router.extend({
     // console.log('testing');
     ReactDOM.render(
       React.createElement(HomeContainer),
+      document.getElementById('app')
+    )
+  },
+  about: function(){
+    ReactDOM.render(
+      React.createElement(AboutContainer),
       document.getElementById('app')
     )
   },

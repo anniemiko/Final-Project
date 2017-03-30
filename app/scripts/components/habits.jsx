@@ -29,14 +29,13 @@ class HabitContainer extends React.Component{
     this.handleFriendSearch = _.debounce(this.handleFriendSearch, 300).bind(this)
 
 
-    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection}), console.log('drinks', userCollection)});
+    userCollection.fetch().then(()=>{this.setState({userCollection: userCollection}), console.log('all users', userCollection)});
 
     habitCollection.parseWhere('owner', '_User', userId).fetch().then(()=>{this.setState({collection: habitCollection})}).done(habitCollection.urlSetter())
 
     this.state = {
       collection: habitCollection,
-      userCollection: userCollection,
-      friends: []
+      userCollection: userCollection
     }
   }
   deleteHabit(habit){
@@ -48,12 +47,12 @@ class HabitContainer extends React.Component{
 
     var friend = this.state.userCollection.findWhere({username:data});
 
-    var friends = this.state.friends;
-    friends.push(friend);
-    this.setState({friends})
-
-    console.log('searchedUser', friend);
-    console.log('friends', friends);
+    // var friends = this.state.friends;
+    // friends.push(friend);
+    this.setState({friend})
+    //
+    // console.log('searchedUser', friend);
+    console.log('find friend', friend);
   }
   render(){
     var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg'
@@ -67,7 +66,7 @@ class HabitContainer extends React.Component{
                 <a href="#!" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Edit your profile"><i className="material-icons edit">mode_edit</i></a>
               </div>
             </div>
-            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} handleFriendSearch={this.handleFriendSearch} friends={this.state.friends} challengeCollection={this.state.challengeCollection}/>
+            <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} handleFriendSearch={this.handleFriendSearch} friend={this.state.friend} challengeCollection={this.state.challengeCollection}/>
           </div>
       </BaseLayout>
   )
@@ -77,6 +76,7 @@ class HabitContainer extends React.Component{
 class HabitList extends React.Component{
   constructor(props){
     super(props)
+    console.log('props', this.props.friend);
     var star = new Star();
 
     this.showAddHabit = this.showAddHabit.bind(this);
@@ -132,7 +132,6 @@ class HabitList extends React.Component{
   }
   handleSubmit(e){
     this.props.handleFriendSearch(this.state.searchTerm)
-    console.log('props', this.props.friends);
   }
   handleSearch(e){
     this.setState({showCreateChallenge: false});
@@ -141,17 +140,26 @@ class HabitList extends React.Component{
   }
   addFriend(friend){
     var user = User.current();
-    var userFriends = User.current().get('friends');
+    var userId = user.get('objectId')
+    console.log('user id', userId);
+    var userCollection = new UserCollection();
+    userCollection.whereClause = {};
+    userCollection.fetch().then( () => {
+      var userModel = userCollection.get(userId);
+      var userFriends = userModel.get('friends');
 
-    userFriends.push(friend);
+      userFriends.push(friend);
 
-    user.set({
-      'friends': userFriends
-    });
+      userModel.set({
+        'friends': userFriends
+      });
 
-    console.log('user', user);
+      console.log('user', userModel);
 
-    user.save();
+      userModel.save().then( (data) => {
+        console.log('returned friend data', data);
+      });
+    })
     // console.log('userFriends', userFriends);
   }
   render(){
@@ -165,39 +173,40 @@ class HabitList extends React.Component{
           <a href={"#habitdetail/" + habit.get('objectId')} className="btn waves-effect">
               View Habit
             </a>
-            <a onClick={(e)=>{e.preventDefault(); this.props.deleteHabit(habit)}} className="btn waves-effect red secondary-content">Delete Habit</a>
+            <a onClick={(e)=>{e.preventDefault(); this.props.deleteHabit(habit)}} className="btn waves-effect orange darken-4 secondary-content">Delete Habit</a>
         </li>
       )
     })
-    var friendList = this.props.friends.map((friend, index)=>{
-      console.log(friend);
-      return(
-        <li key={index} className="collection-item">
-          <img src={friend.get('pic').url || 'images/avatar-cat.jpg'} className="circle profilepic"/>
-          <h6>{friend.get('username')}</h6>
-          <button onClick={()=>this.addFriend(friend)} className="btn waves-effect orange right">Add friend</button>
-        </li>
-      )
-    })
+    var friendSearch = !this.props.friend ?
+      <div></div> : <div className="searched-friend"><div className="col s9">
+        <img src={this.props.friend.get('pic').url || 'images/avatar-cat.jpg'} className="circle profilepic"/>
+        <h6 className="friend-name">{this.props.friend.username}</h6>
+      </div>
+      <div className="col s3">
+        <button onClick={()=>this.addFriend(this.props.friend)} className="btn waves-effect orange right add-friend">Add friend</button>
+      </div>
+      </div>
+
+
     return (
     <div className="row">
       <div className="habits">
         <div className="habit-list">
-          <h3>Habits</h3>
+          <h3 className="light-green center">Habits</h3>
           <i className="material-icons check">offline_pin</i><span className="check-off">Check off your habit every day you complete it!</span>
-          <ul className="collection valign">
+          <ul className="collection valign habit-list">
             {habitList}
           </ul>
-          <button onClick={this.showAddHabit} className="btn blue center">Add a new Habit</button>
+          <button onClick={this.showAddHabit} className="btn light-green center">Add a new Habit</button>
         </div>
         <div className="connect">
           <h4 className="center others">Connect with Others</h4>
           <div className="row">
             <div className="col m6 s12">
               <h4>Group challenge!</h4>
-              <button onClick={this.showCreateChallenge} className="btn">Create a Challenge</button>
+              <button onClick={this.showCreateChallenge} className="btn light-blue accent-4">Create a Challenge</button>
 
-              <button onClick={this.showJoinChallenge} className="btn">Join a Challenge</button>
+              <button onClick={this.showJoinChallenge} className="btn light-blue accent-4">Join a Challenge</button>
             </div>
             <div className="col m6 s12">
               <h4><i className="material-icons search">search</i>Search for Friends</h4>
@@ -206,14 +215,12 @@ class HabitList extends React.Component{
                         <div className="input-field">
                           <input onChange={this.handleSearch} id="searchTerm" type="search" placeholder="search by username"/>
 
-                            <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <button className="btn waves-effect waves-light light-blue accent-4" type="submit" name="action">Submit
                               <i className="material-icons right">search</i>
                             </button>
                         </div>
                       </form>
-                      <ul>
-                        {friendList}
-                      </ul>
+                      {friendSearch}
                     </div>
             </div>
           </div>

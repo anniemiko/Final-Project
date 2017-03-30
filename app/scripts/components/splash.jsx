@@ -43,15 +43,15 @@ class HomeContainer extends React.Component{
         </div>
         <div className="container habit-info">
           <div className="row">
-            <div className="col s4">
+            <div className="col s12 m4">
               <h4>Focus on the Why</h4>
               <p>When forming a new habit or quitting a bad habit, your reason for making the change is what will drive your success. Keep your motivation in mind with reminders.</p>
             </div>
-            <div className="col s4">
+            <div className="col s12 m4">
               <h4>Accountability</h4>
               <p>Connect with others who are attempting the same habit change to keep yourself accountable. Invite your friends!</p>
             </div>
-            <div className="col s4">
+            <div className="col s12 m4">
               <h4>Track your progress</h4>
               <p>Check off your habits daily and see your progress over the course of nine weeks. Try not to break the habit chain!</p>
             </div>

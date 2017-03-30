@@ -70,7 +70,6 @@ class HabitDetailContainer extends React.Component{
     var habit = this.state.habit;
     return (
       <BaseLayout>
-          <h3>Habit details</h3>
           <HabitDetail saveHabit={this.saveHabit} saveLinks={this.saveLinks} habit={this.state.habit} starCollection={this.state.starCollection} habitId={this.state.habitId}/>
       </BaseLayout>
     )
@@ -161,43 +160,52 @@ class HabitDetail extends React.Component {
     var motivation = this.state.editing ? <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation}/> : <h5>{this.state.motivation}</h5>;
     var pocket =  !localStorage.getItem('pocket_access_token') ?
         <button onClick={this.addPocket} className="waves-effect btn red">Connect to Pocket</button>
-        : <div><label className="searchAdd"htmlFor="links">Search Pocket articles for tag:</label>
+        : <div><i className="material-icons search">search</i><label className="searchAdd"htmlFor="links">Search Pocket articles for tag:</label>
       <input onChange={(e)=>{e.preventDefault(); this.setState({searchTerm: e.target.value})}} type="text" name="links"/>
-          <button onClick={this.addPocketLinks} className="waves-effect btn red">Add Pocket links to habit</button></div>;
+          <button onClick={this.addPocketLinks} className="waves-effect btn orange darken-4">Add Pocket links to habit</button></div>;
     var title = !this.state.articles ? <p>Add an article</p> : this.state.articles.map((article)=>{
       return (
-        <li key={article.item_id ? article.item_id : "" } className="collection-item articles"><a href={article.given_url ? article.given_url : article.resolved_url}><h6>{article.given_title ? article.given_title : article.resolved_title}</h6></a></li>
+        <li key={article.item_id ? article.item_id : "" } className="collection-item articles col m4 s6"><a href={article.given_url ? article.given_url : article.resolved_url}><h6>{article.given_title ? article.given_title : article.resolved_title}</h6></a></li>
       )
   });
     return (
       <div className="habit-detail-screen">
-        <form>
-          <div className="form-group habit-detail">
-            <label htmlFor="description">Your habit:</label>
-            {description}
+        <div className="row">
+          <div className="col m6 s12">
+            <h4>Habit details</h4>
+            <form>
+              <div className="form-group habit-detail">
+                <label htmlFor="description">Your habit:</label>
+                {description}
+              </div>
+              <div className="form-group habit-detail">
+                <label htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>
+                {motivation}
+              </div>
+                <button onClick={this.handleSubmit} className="waves-effect btn amber darken-2" type="submit">{this.state.editing ? 'Save' : 'Edit'}</button>
+            </form>
           </div>
-          <div className="form-group habit-detail">
-            <label htmlFor="motivation">Your motivation for beginning/quitting this habit:</label>
-            {motivation}
+          <div className="col m6 s12">
+            <h4>Habit Chain</h4>
+              <ul className="collection valign stars">
+                {starList}
+              </ul>
           </div>
-            <button onClick={this.handleSubmit} className="waves-effect btn orange" type="submit">{this.state.editing ? 'Save' : 'Edit'}</button>
-        </form>
-
+        </div>
 
 
           <br></br>
           <div className="row">
-            <div className="col m6 s12">
+            <div className="col s12">
               <h4>Related Articles</h4>
-              <ul>{title}</ul>
+              <div className="row">
+                  <ul>{title}</ul>
+              </div>
+              <div className="row">
                 {pocket}
+              </div>
             </div>
-            <div className="col m6 s12">
-              <h4>Habit Chain</h4>
-                <ul className="collection valign stars">
-                  {starList}
-                </ul>
-            </div>
+
 
           </div>
 
