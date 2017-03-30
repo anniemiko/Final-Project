@@ -9,7 +9,7 @@ var ParseCollection = require('../utilities/parse').ParseCollection;
 var StarCollection = require('../models/stars.js').StarCollection;
 var BaseLayout = require('../layouts/base-layout.jsx').BaseLayout;
 
-const SERVER_URL = "http://localhost:3000";
+const SERVER_URL = "https://habit-proxy-server.herokuapp.com";
 
 class HabitDetailContainer extends React.Component{
   constructor(props){
