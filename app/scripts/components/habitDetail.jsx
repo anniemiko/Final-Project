@@ -156,8 +156,8 @@ class HabitDetail extends React.Component {
         )
       }
     })
-    var description = this.state.editing ? <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description}/> : <h5>{this.state.description}</h5>;
-    var motivation = this.state.editing ? <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation}/> : <h5>{this.state.motivation}</h5>;
+    var description = this.state.editing ? <input onChange={this.handleDescriptionChange} type='text' className="form-control" name="description" value={this.state.description}/> : <h5 className="habit-detail">{this.state.description}</h5>;
+    var motivation = this.state.editing ? <input onChange={this.handleMotivationChange} type='text' className="form-control" name="motivation" value={this.state.motivation}/> : <h5 className="habit-detail">{this.state.motivation}</h5>;
     var pocket =  !localStorage.getItem('pocket_access_token') ?
         <button onClick={this.addPocket} className="waves-effect btn red">Connect to Pocket</button>
         : <div><i className="material-icons search">search</i><label className="searchAdd"htmlFor="links">Search Pocket articles for tag:</label>
@@ -166,12 +166,13 @@ class HabitDetail extends React.Component {
     var title = !this.state.articles ? <p>Add an article</p> : this.state.articles.map((article)=>{
       return (
         <li key={article.item_id ? article.item_id : "" } className="collection-item articles col m4 s6">
-          <div className="card small cyan darken-4">
+
             <a href={article.given_url ? article.given_url : article.resolved_url}>
-            <div className="white-text">
+              <div className="card small hoverable cyan darken-4">
+            <div className="card-title">
               <h6>{article.given_title ? article.given_title : article.resolved_title}</h6>
-              </div></a>
-            </div>
+              </div>
+            </div></a>
 
             </li>
       )
@@ -180,7 +181,7 @@ class HabitDetail extends React.Component {
       <div className="habit-detail-screen">
         <div className="row">
           <div className="col m6 s12">
-            <h4>Habit details</h4>
+            <h4 className="light-green">Habit Details</h4>
             <form>
               <div className="form-group habit-detail">
                 <label htmlFor="description">Your habit:</label>
@@ -194,7 +195,7 @@ class HabitDetail extends React.Component {
             </form>
           </div>
           <div className="col m6 s12">
-            <h4>Habit Chain</h4>
+            <h4 className="habit-detail-heading">Habit Chain</h4>
               <ul className="collection valign stars">
                 {starList}
               </ul>
@@ -205,7 +206,7 @@ class HabitDetail extends React.Component {
           <br></br>
           <div className="row">
             <div className="col s12">
-              <h4>Related Articles</h4>
+              <h4 className="deep-orange darken-3">Related Articles</h4>
               <div className="row">
                   <ul>{title}</ul>
               </div>

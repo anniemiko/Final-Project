@@ -35,17 +35,13 @@ render(){
         <h5 className="friend-username">{friend.username}</h5>
       </li>
     )
-  }) : <div>you have no friends</div>
+  }) : <div className="center white-text">you have no friends</div>
   return (
       <BaseLayout>
           <div className="col s12">
             <div className="row">
-              <div className="col s3">
-                <img src={profilePic} alt={User.current().get('pic').name} className="circle profilepic"/>
-                  <span className="title username">{User.current().get('username')}</span>
-              </div>
-              <div className="col s9 center">
-                <h3>Your Friends</h3>
+              <div className="center">
+                <h3 className="light-green">{User.current().get('username')}'s Friends</h3>
               </div>
             </div>
             <div className="row">

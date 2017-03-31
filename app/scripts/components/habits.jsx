@@ -59,13 +59,6 @@ class HabitContainer extends React.Component{
     return (
       <BaseLayout>
           <div className="col s12">
-            <div className="row">
-              <div className="col s3">
-                <img src={profilePic} alt={User.current().get('pic').name} className="circle profilepic"/>
-                  <span className="title username">{User.current().get('username')}</span>
-                <a href="#!" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Edit your profile"><i className="material-icons edit">mode_edit</i></a>
-              </div>
-            </div>
             <HabitList collection={this.state.collection} deleteHabit={this.deleteHabit} userCollection={this.state.userCollection} handleFriendSearch={this.handleFriendSearch} friend={this.state.friend} challengeCollection={this.state.challengeCollection}/>
           </div>
       </BaseLayout>
@@ -192,21 +185,22 @@ class HabitList extends React.Component{
     <div className="row">
       <div className="habits">
         <div className="habit-list">
-          <h3 className="light-green center">Habits</h3>
+          <h3 className="light-green accent-1 center">Habits</h3>
           <i className="material-icons check">offline_pin</i><span className="check-off">Check off your habit every day you complete it!</span>
           <ul className="collection valign habit-list">
             {habitList}
           </ul>
-          <button onClick={this.showAddHabit} className="btn light-green center">Add a new Habit</button>
+          <button onClick={this.showAddHabit} className="btn waves-effect light-green accent-1 center add-habit">Add a new Habit</button>
         </div>
         <div className="connect">
           <h4 className="center others">Connect with Others</h4>
           <div className="row">
-            <div className="col m6 s12">
+            <div className="col m6 s12 center">
               <h4>Group challenge!</h4>
-              <button onClick={this.showCreateChallenge} className="btn light-blue accent-4">Create a Challenge</button>
+              <p className="white-text">Work towards a goal with your friends!</p>
+              <button onClick={this.showCreateChallenge} className="btn waves-effect light-green">Create a Challenge</button>
 
-              <button onClick={this.showJoinChallenge} className="btn light-blue accent-4">Join a Challenge</button>
+              <button onClick={this.showJoinChallenge} className="btn light-green waves-effect">Join a Challenge</button>
             </div>
             <div className="col m6 s12">
               <h4><i className="material-icons search">search</i>Search for Friends</h4>
@@ -215,7 +209,7 @@ class HabitList extends React.Component{
                         <div className="input-field">
                           <input onChange={this.handleSearch} id="searchTerm" type="search" placeholder="search by username"/>
 
-                            <button className="btn waves-effect waves-light light-blue accent-4" type="submit" name="action">Submit
+                            <button className="btn waves-effect light-green right" type="submit" name="action">Submit
                               <i className="material-icons right">search</i>
                             </button>
                         </div>

@@ -69,7 +69,7 @@ h1{
   padding-bottom: 60px;
 }
 
-// ** styling for aout page ** //
+// ** styling for about page ** //
 .about-heading {
   color: white;
   font-size: 20px;
@@ -80,7 +80,7 @@ h1{
 }
 
 .about-box{
-  margin: 10px;
+  // margin: 10px;
 }
 // ** styling for habits page ** //
 
@@ -113,7 +113,7 @@ h3, h4, h5 {
 }
 
 .check {
-  color: #76ff03;
+  color: #ff8a65;
   font-size: 32px;
   padding-left: 16px;
   vertical-align: bottom;
@@ -126,12 +126,22 @@ h3, h4, h5 {
 .habit-list{
   margin-top: 20px;
 }
+.habit-list h3{
+  color: #006064
+}
 #habit-list{
   padding: 10px 20px;
 }
+.add-habit{
+  color: #006064;
+  font-weight: bold;
+  font-size: 16px;
+}
 .others {
-  background-color: #039be5;
+  background-color: #8bc34a;
   color: white;
+  padding: 7px;
+  margin-top: 30px;
 }
 .search {
   font-size: 30px;
@@ -145,14 +155,18 @@ h3, h4, h5 {
   margin-top: 30px;
 }
 // ** styling for habit detail page ** //
-.habit-detail label {
+.habit-detail-heading{
   color: #b2ff59;
-  font-size: 18px;
+}
+.habit-detail label {
+  color: white;
+  font-size: 20px;
 }
 
 .habit-detail {
-  color: white;
-  font-size: 18px;
+  color: #b2ff59;
+  font-size: 20px;
+  padding: 8px;
 }
 
 .stars{
@@ -198,6 +212,7 @@ h3, h4, h5 {
 // ** styling for friends page ** //
 .friend-username {
   text-align: center;
+  padding-bottom: 20px;
 }
 .profile-pic{
   text-align: center;
@@ -208,6 +223,13 @@ h3, h4, h5 {
   background-color: #70BBBF;
 }
 
+.chip img{
+  height: 40px;
+  padding-right: 5px;
+}
+.chip{
+  padding-right: 10px;
+}
 .button-collapse {
   color: #fff;
   position: absolute;

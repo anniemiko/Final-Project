@@ -72,7 +72,7 @@ class ChallengesContainer extends React.Component{
         <li key={challenge.objectId} className="collection-item valign">
           <div className="collapsible-header row">
               <h5 className="challenge col s9">{challenge.name}</h5>
-              <button onClick={()=> this.addChallengeStar(challenge.objectId)} className="btn waves-effect teal col s3">Mark done for today</button>
+              <button onClick={()=> this.addChallengeStar(challenge.objectId)} className="btn waves-effect deep-orange lighten-1 col s3">Mark done for today</button>
           </div>
           <div className="collapsible-body">
             <p>{challenge.description}</p>
@@ -84,7 +84,7 @@ class ChallengesContainer extends React.Component{
     })
     return (
       <BaseLayout>
-          <h3 className="center">Challenges</h3>
+          <h3 className="center light-green">Challenges</h3>
           <ul className="collection valign collapsible" data-collapsible="accordion">
             {challenges}
           </ul>

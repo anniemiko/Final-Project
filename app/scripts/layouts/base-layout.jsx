@@ -3,6 +3,7 @@ var $ = window.jQuery = require('jquery');
 var Materialize = require('materialize-css');
 require('../../../node_modules/materialize-css/bin/materialize.js');
 require('../../../node_modules/materialize-css/js/dropdown.js');
+require('../../../node_modules/materialize-css/js/chips.js');
 
 var User = require('../models/user.js').User;
 
@@ -11,10 +12,15 @@ class BaseLayout extends React.Component{
     super(props)
       $(".button-collapse").dropdown();
       $('.collapsible').collapsible();
+      var profilePic = User.current().get('pic').url || 'images/avatar-cat.jpg';
+      this.state = {
+        profilePic
+      }
   }
   componentDidMount(){
       $(".button-collapse").dropdown();
       $('.collapsible').collapsible();
+      $('.chips').material_chip();
   }
   render(){
   return(
@@ -28,8 +34,12 @@ class BaseLayout extends React.Component{
             <li><a href="#challenges">Challenges</a></li>
             <li><a href="#friends">Friends</a></li>
           </ul>
-          <ul id="nav-mobile-logout" className="right hide-on-med-and-down">
-            <li><a onClick={User.logout} href="#home">Logout</a></li>
+          <ul id="nav-mobile-logout" className="right">
+            <li><span className="chip valign-wrapper">
+              <img className="circle" src={this.state.profilePic} alt={User.current().get('pic').name}/>
+                {User.current().get('username')}</span>
+              </li>
+            <li className="hide-on-med-and-down"><a onClick={User.logout} href="#home">Logout</a></li>
           </ul>
         </div>
       </nav>
