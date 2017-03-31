@@ -33,25 +33,25 @@ class ChallengesContainer extends React.Component{
     this.generateParticipants = this.generateParticipants.bind(this);
 
   }
-  addChallengeStar(challenge){
-    var star = this.state.star;
-
-    star.isNew() ? star.set('timestamp', moment().format('l')): star.set('timestamp', star.get('timestamp'));
-
-    star.setPointer('owner', '_User', User.current().get('objectId'));
-    star.set({'challenge' : {
-      "objects":[
-       {"__type":"Pointer", "className":"Challenge", "objectId": challenge.objectId}
-      ]}
-    })
-
-    star.save().then(()=>{
-
-    });
-    this.state = {
-     star
-    }
-  }
+  // addChallengeStar(challenge){
+  //   var star = this.state.star;
+  //
+  //   star.isNew() ? star.set('timestamp', moment().format('l')): star.set('timestamp', star.get('timestamp'));
+  //
+  //   star.setPointer('owner', '_User', User.current().get('objectId'));
+  //   star.set({'challenge' : {
+  //     "objects":[
+  //      {"__type":"Pointer", "className":"Challenge", "objectId": challenge.objectId}
+  //     ]}
+  //   })
+  //
+  //   star.save().then(()=>{
+  //
+  //   });
+  //   this.state = {
+  //    star
+  //   }
+  // }
   generateParticipants(challenge) {
     var parts = challenge.participants;
     var list;
@@ -75,8 +75,8 @@ class ChallengesContainer extends React.Component{
               <button onClick={()=> this.addChallengeStar(challenge.objectId)} className="btn waves-effect deep-orange lighten-1 col s3">Mark done for today</button>
           </div>
           <div className="collapsible-body">
-            <p>{challenge.description}</p>
-            <h6>Participants:</h6>
+            <p className="challenge-description">{challenge.description}</p>
+            <h6 className="participants-header">Participants:</h6>
             <ul>{this.generateParticipants(challenge)}</ul>
           </div>
         </li>

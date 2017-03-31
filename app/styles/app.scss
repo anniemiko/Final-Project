@@ -28,19 +28,11 @@ body {
   padding: 35px;
 }
 // ** styling for splash page ** //
-// nav a{
-//   color: blue;
-//   float: right;
-//   display: inline-block;
-// }
-// nav h4{
-//   color: lightgrey;
-//   display: inline-block;
-// }
 
 .banner{
   background-image: url('../images/lavender-trees.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
 }
 .header {
   padding-top: 40px;
@@ -67,6 +59,7 @@ h1{
 .front-articles {
   padding: 20px;
   padding-bottom: 60px;
+  background-size: cover;
 }
 
 // ** styling for about page ** //
@@ -78,9 +71,17 @@ h1{
   color: #C7D3DD;
   font-size: 16px;
 }
-
-.about-box{
-  // margin: 10px;
+.basics{
+  color: #ccff90;
+}
+.card-panel{
+  height: 250px;
+  margin: 10px;
+}
+.contact{
+  padding-top: 14px;
+  color: #006064;
+  font-size: 17px;
 }
 // ** styling for habits page ** //
 
@@ -155,14 +156,16 @@ h3, h4, h5 {
   margin-top: 30px;
 }
 // ** styling for habit detail page ** //
-.habit-detail-heading{
+.habit-chain-heading{
   color: #b2ff59;
 }
 .habit-detail label {
   color: white;
   font-size: 20px;
 }
-
+.habit-detail-heading, .related-articles-heading{
+  padding: 5px 8px;
+}
 .habit-detail {
   color: #b2ff59;
   font-size: 20px;
@@ -203,10 +206,21 @@ h3, h4, h5 {
 
 // ** styling for challenges page ** //
 .participants h6 {
-  color: #24282F;
+  color: #009587;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 5px 5px;
+}
+.participants-header{
+  color: #ccff90;
+  font-size: 16px;
+  padding: 5px;
 }
 .challenge {
   color: #009587;
+}
+.challenge-description{
+  font-size: 18px;
 }
 
 // ** styling for friends page ** //

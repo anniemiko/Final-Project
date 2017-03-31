@@ -46,7 +46,7 @@ class JoinChallengeContainer extends MaterializeModal {
       return(
         <li key={challenge.cid} className="collection-item valign col s12">
           <span>{challenge.get('name')}</span>
-          <a onClick={()=>this.handleSubmit(challenge)} type="submit" className="btn waves-effect blue right col s4">Join Challenge</a>
+          <a href="#challenges" onClick={()=>this.handleSubmit(challenge)} type="submit" className="btn waves-effect blue right col s4">Join Challenge</a>
         </li>
       )
     })

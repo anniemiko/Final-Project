@@ -181,7 +181,7 @@ class HabitDetail extends React.Component {
       <div className="habit-detail-screen">
         <div className="row">
           <div className="col m6 s12">
-            <h4 className="light-green">Habit Details</h4>
+            <h4 className="light-green habit-detail-heading">Habit Details</h4>
             <form>
               <div className="form-group habit-detail">
                 <label htmlFor="description">Your habit:</label>
@@ -195,7 +195,7 @@ class HabitDetail extends React.Component {
             </form>
           </div>
           <div className="col m6 s12">
-            <h4 className="habit-detail-heading">Habit Chain</h4>
+            <h4 className="habit-chain-heading">Habit Chain</h4>
               <ul className="collection valign stars">
                 {starList}
               </ul>
@@ -206,7 +206,7 @@ class HabitDetail extends React.Component {
           <br></br>
           <div className="row">
             <div className="col s12">
-              <h4 className="deep-orange darken-3">Related Articles</h4>
+              <h4 className="deep-orange darken-3 related-articles-heading">Related Articles</h4>
               <div className="row">
                   <ul>{title}</ul>
               </div>

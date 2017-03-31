@@ -36,7 +36,7 @@ class BaseLayout extends React.Component{
           </ul>
           <ul id="nav-mobile-logout" className="right">
             <li><span className="chip valign-wrapper">
-              <img className="circle" src={this.state.profilePic} alt={User.current().get('pic').name}/>
+              <img className="circle responsive-img" src={this.state.profilePic} alt={User.current().get('pic').name}/>
                 {User.current().get('username')}</span>
               </li>
             <li className="hide-on-med-and-down"><a onClick={User.logout} href="#home">Logout</a></li>
