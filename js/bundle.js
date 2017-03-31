@@ -12,23 +12,41 @@ render(){
     React.createElement(BaseLayout, null, 
       React.createElement("h4", {className: "title center light-green"}, "About"), 
       React.createElement("p", {className: "white-text"}, "Eveyone has habits, some good and some bad. Most people feel they could be happier, healthier or more productive if they were able to build more good habits and quit the bad ones. This app has been developed to help people do exactly that."), 
-      React.createElement("h5", {className: "center"}, "Basics of Habit Formation"), 
+      React.createElement("h5", {className: "center basics"}, "Basics of Habit Formation"), 
       React.createElement("div", {className: "row center"}, 
-        React.createElement("div", {className: "col s12 m6 card small about-box"}, 
-          React.createElement("h6", {className: "about-heading"}, "9 weeks"), 
-          React.createElement("p", {className: "about-p"}, "Scientific studies have shown it takes approximately 66 days to form a habit. This is about 9 weeks, so we chose to call the app 9 to Shine to reflect the 9 weeks you will work on your habit.")
+        React.createElement("div", {className: "col s12 m6 about-box"}, 
+          React.createElement("div", {className: "card-panel cyan darken-4"}, 
+            React.createElement("h6", {className: "about-heading"}, "9 weeks"), 
+            React.createElement("p", {className: "about-p"}, "Scientific studies have shown it takes approximately 66 days to form a habit. This is about 9 weeks, so we chose to call the app 9 to Shine to reflect the 9 weeks you will work on your habit.")
+          )
         ), 
-        React.createElement("div", {className: "col s12 m6 card small about-box"}, 
-          React.createElement("h6", {className: "about-heading"}, "Habit chaining"), 
-          React.createElement("p", {className: "about-p"}, "Marking off a completed or avoided habit every day to create an unbroken chain gives people a visual goal and greatly increases your likelihood to stick to the habit.")
+        React.createElement("div", {className: "col s12 m6 about-box"}, 
+          React.createElement("div", {className: "card-panel cyan darken-4"}, 
+            React.createElement("h6", {className: "about-heading"}, "Habit chaining"), 
+            React.createElement("p", {className: "about-p"}, "Marking off a completed or avoided habit every day to create an unbroken chain gives people a visual goal and greatly increases your likelihood to stick to the habit.")
+          )
         ), 
         React.createElement("div", {className: "col s12 m6"}, 
-          React.createElement("h6", {className: "about-heading"}, "Peer accountability"), 
-          React.createElement("p", {className: "about-p"}, "Social relationships play a big part in our ability to change our lives. When you tell others you are attempting something, you end up feeling accountable to live up to your word. Additionally, working on a challenge together provides both support from friends and a little healthy competition to help you reach your goals.")
+          React.createElement("div", {className: "card-panel cyan darken-4"}, 
+            React.createElement("h6", {className: "about-heading"}, "Peer accountability"), 
+            React.createElement("p", {className: "about-p"}, "Social relationships play a big part in our ability to change our lives. When you tell others you are attempting something, you end up feeling accountable to live up to your word. Additionally, working on a challenge together provides both support from friends and a little healthy competition to help you reach your goals.")
+          )
         ), 
         React.createElement("div", {className: "col s12 m6"}, 
-          React.createElement("h6", {className: "about-heading"}, "Motivation"), 
-          React.createElement("p", {className: "about-p"}, "A big factor in staying motivated is remembering your why. Why do want to change this habit? What is the reason that will keep you going when you are feeling low?")
+          React.createElement("div", {className: "card-panel cyan darken-4"}, 
+            React.createElement("h6", {className: "about-heading"}, "Motivation"), 
+            React.createElement("p", {className: "about-p"}, "A big factor in staying motivated is remembering your why. Why do want to change this habit? What is the reason that will keep you going when you are feeling low?")
+          )
+        )
+      ), 
+      React.createElement("div", {className: "row"}, 
+        React.createElement("div", {className: "card-panel center-align light-green lighten-4"}, 
+          React.createElement("h4", {className: "light-green darken-1"}, "Contact Me"), 
+          React.createElement("div", {className: "contact"}, 
+            React.createElement("h6", null, "Andrea Baty"), 
+            React.createElement("h6", null, "andrea.f.baty@gmail.com"), 
+            React.createElement("h6", null, "www.andreabaty.com")
+          )
         )
       )
     )
@@ -168,25 +186,25 @@ class ChallengesContainer extends React.Component{
     this.generateParticipants = this.generateParticipants.bind(this);
 
   }
-  addChallengeStar(challenge){
-    var star = this.state.star;
-
-    star.isNew() ? star.set('timestamp', moment().format('l')): star.set('timestamp', star.get('timestamp'));
-
-    star.setPointer('owner', '_User', User.current().get('objectId'));
-    star.set({'challenge' : {
-      "objects":[
-       {"__type":"Pointer", "className":"Challenge", "objectId": challenge.objectId}
-      ]}
-    })
-
-    star.save().then(()=>{
-
-    });
-    this.state = {
-     star
-    }
-  }
+  // addChallengeStar(challenge){
+  //   var star = this.state.star;
+  //
+  //   star.isNew() ? star.set('timestamp', moment().format('l')): star.set('timestamp', star.get('timestamp'));
+  //
+  //   star.setPointer('owner', '_User', User.current().get('objectId'));
+  //   star.set({'challenge' : {
+  //     "objects":[
+  //      {"__type":"Pointer", "className":"Challenge", "objectId": challenge.objectId}
+  //     ]}
+  //   })
+  //
+  //   star.save().then(()=>{
+  //
+  //   });
+  //   this.state = {
+  //    star
+  //   }
+  // }
   generateParticipants(challenge) {
     var parts = challenge.participants;
     var list;
@@ -210,8 +228,8 @@ class ChallengesContainer extends React.Component{
               React.createElement("button", {onClick: ()=> this.addChallengeStar(challenge.objectId), className: "btn waves-effect deep-orange lighten-1 col s3"}, "Mark done for today")
           ), 
           React.createElement("div", {className: "collapsible-body"}, 
-            React.createElement("p", null, challenge.description), 
-            React.createElement("h6", null, "Participants:"), 
+            React.createElement("p", {className: "challenge-description"}, challenge.description), 
+            React.createElement("h6", {className: "participants-header"}, "Participants:"), 
             React.createElement("ul", null, this.generateParticipants(challenge))
           )
         )
@@ -571,7 +589,7 @@ class HabitDetail extends React.Component {
       React.createElement("div", {className: "habit-detail-screen"}, 
         React.createElement("div", {className: "row"}, 
           React.createElement("div", {className: "col m6 s12"}, 
-            React.createElement("h4", {className: "light-green"}, "Habit Details"), 
+            React.createElement("h4", {className: "light-green habit-detail-heading"}, "Habit Details"), 
             React.createElement("form", null, 
               React.createElement("div", {className: "form-group habit-detail"}, 
                 React.createElement("label", {htmlFor: "description"}, "Your habit:"), 
@@ -585,7 +603,7 @@ class HabitDetail extends React.Component {
             )
           ), 
           React.createElement("div", {className: "col m6 s12"}, 
-            React.createElement("h4", {className: "habit-detail-heading"}, "Habit Chain"), 
+            React.createElement("h4", {className: "habit-chain-heading"}, "Habit Chain"), 
               React.createElement("ul", {className: "collection valign stars"}, 
                 starList
               )
@@ -596,7 +614,7 @@ class HabitDetail extends React.Component {
           React.createElement("br", null), 
           React.createElement("div", {className: "row"}, 
             React.createElement("div", {className: "col s12"}, 
-              React.createElement("h4", {className: "deep-orange darken-3"}, "Related Articles"), 
+              React.createElement("h4", {className: "deep-orange darken-3 related-articles-heading"}, "Related Articles"), 
               React.createElement("div", {className: "row"}, 
                   React.createElement("ul", null, title)
               ), 
@@ -906,7 +924,7 @@ class JoinChallengeContainer extends MaterializeModal {
       return(
         React.createElement("li", {key: challenge.cid, className: "collection-item valign col s12"}, 
           React.createElement("span", null, challenge.get('name')), 
-          React.createElement("a", {onClick: ()=>this.handleSubmit(challenge), type: "submit", className: "btn waves-effect blue right col s4"}, "Join Challenge")
+          React.createElement("a", {href: "#challenges", onClick: ()=>this.handleSubmit(challenge), type: "submit", className: "btn waves-effect blue right col s4"}, "Join Challenge")
         )
       )
     })
@@ -1306,7 +1324,7 @@ class BaseLayout extends React.Component{
           ), 
           React.createElement("ul", {id: "nav-mobile-logout", className: "right"}, 
             React.createElement("li", null, React.createElement("span", {className: "chip valign-wrapper"}, 
-              React.createElement("img", {className: "circle", src: this.state.profilePic, alt: User.current().get('pic').name}), 
+              React.createElement("img", {className: "circle responsive-img", src: this.state.profilePic, alt: User.current().get('pic').name}), 
                 User.current().get('username'))
               ), 
             React.createElement("li", {className: "hide-on-med-and-down"}, React.createElement("a", {onClick: User.logout, href: "#home"}, "Logout"))

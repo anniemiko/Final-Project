@@ -7701,7 +7701,8 @@ body {
 
 .banner {
   background-image: url("../images/lavender-trees.jpg");
-  background-size: cover; }
+  background-size: cover;
+  background-repeat: no-repeat; }
 
 .header {
   padding-top: 40px; }
@@ -7724,7 +7725,8 @@ h1 {
 
 .front-articles {
   padding: 20px;
-  padding-bottom: 60px; }
+  padding-bottom: 60px;
+  background-size: cover; }
 
 .about-heading {
   color: white;
@@ -7733,6 +7735,18 @@ h1 {
 .about-p {
   color: #C7D3DD;
   font-size: 16px; }
+
+.basics {
+  color: #ccff90; }
+
+.card-panel {
+  height: 250px;
+  margin: 10px; }
+
+.contact {
+  padding-top: 14px;
+  color: #006064;
+  font-size: 17px; }
 
 h3, h4, h5 {
   color: white; }
@@ -7801,12 +7815,15 @@ h3, h4, h5 {
 .add-friend {
   margin-top: 30px; }
 
-.habit-detail-heading {
+.habit-chain-heading {
   color: #b2ff59; }
 
 .habit-detail label {
   color: white;
   font-size: 20px; }
+
+.habit-detail-heading, .related-articles-heading {
+  padding: 5px 8px; }
 
 .habit-detail {
   color: #b2ff59;
@@ -7843,10 +7860,21 @@ h3, h4, h5 {
   padding: 15px; }
 
 .participants h6 {
-  color: #24282F; }
+  color: #009587;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 5px 5px; }
+
+.participants-header {
+  color: #ccff90;
+  font-size: 16px;
+  padding: 5px; }
 
 .challenge {
   color: #009587; }
+
+.challenge-description {
+  font-size: 18px; }
 
 .friend-username {
   text-align: center;
