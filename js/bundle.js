@@ -1312,40 +1312,46 @@ class BaseLayout extends React.Component{
   }
   render(){
   return(
-    React.createElement("div", {className: "base-layout"}, 
-      React.createElement("nav", null, 
-        React.createElement("div", {className: "nav-wrapper navbar"}, 
-          React.createElement("a", {className: "brand-logo center"}, React.createElement("img", {src: "images/9toShine.png"})), 
-          React.createElement("ul", {id: "nav-mobile", className: "left hide-on-med-and-down"}, 
-            React.createElement("li", null, React.createElement("a", {href: "#about"}, "About")), 
-            React.createElement("li", null, React.createElement("a", {href: "#habits"}, "My Habits")), 
-            React.createElement("li", null, React.createElement("a", {href: "#challenges"}, "Challenges")), 
-            React.createElement("li", null, React.createElement("a", {href: "#friends"}, "Friends"))
-          ), 
-          React.createElement("ul", {id: "nav-mobile-logout", className: "right"}, 
-            React.createElement("li", null, React.createElement("span", {className: "chip valign-wrapper"}, 
-              React.createElement("img", {className: "circle responsive-img", src: this.state.profilePic, alt: User.current().get('pic').name}), 
-                User.current().get('username'))
-              ), 
-            React.createElement("li", {className: "hide-on-med-and-down"}, React.createElement("a", {onClick: User.logout, href: "#home"}, "Logout"))
+    React.createElement("div", {className: "base-layout page-flexbox-wrapper"}, 
+      React.createElement("header", null, 
+        React.createElement("nav", null, 
+          React.createElement("div", {className: "nav-wrapper navbar"}, 
+            React.createElement("a", {className: "brand-logo center"}, React.createElement("img", {src: "images/9toShine.png"})), 
+            React.createElement("ul", {id: "nav-mobile", className: "left hide-on-med-and-down"}, 
+              React.createElement("li", null, React.createElement("a", {href: "#about"}, "About")), 
+              React.createElement("li", null, React.createElement("a", {href: "#habits"}, "My Habits")), 
+              React.createElement("li", null, React.createElement("a", {href: "#challenges"}, "Challenges")), 
+              React.createElement("li", null, React.createElement("a", {href: "#friends"}, "Friends"))
+            ), 
+            React.createElement("ul", {id: "nav-mobile-logout", className: "right"}, 
+              React.createElement("li", null, React.createElement("span", {className: "chip valign-wrapper"}, 
+                React.createElement("img", {className: "circle responsive-img", src: this.state.profilePic, alt: User.current().get('pic').name}), 
+                  User.current().get('username'))
+                ), 
+              React.createElement("li", {className: "hide-on-med-and-down"}, React.createElement("a", {onClick: User.logout, href: "#home"}, "Logout"))
+            )
+          )
+        ), 
+        React.createElement("a", {href: "#!", "data-activates": "mobile-demo", className: "button-collapse dropdown-button hide-on-large-only", onClick: $(".dropdown-button").dropdown()}, React.createElement("i", {className: "material-icons"}, "menu")), 
+        React.createElement("ul", {className: "dropdown-content", id: "mobile-demo"}, 
+          React.createElement("li", null, React.createElement("a", {href: "#about"}, "About")), 
+          React.createElement("li", null, React.createElement("a", {href: "#habits"}, "My Habits")), 
+          React.createElement("li", null, React.createElement("a", {href: "#challenges"}, "Challenges")), 
+          React.createElement("li", null, React.createElement("a", {href: "#friends"}, "Friends")), 
+          React.createElement("li", null, React.createElement("a", {href: "#home"}, "Logout"))
+        )
+      ), 
+      React.createElement("main", null, 
+        React.createElement("div", {className: "background"}, 
+          React.createElement("div", {className: "container main"}, 
+                this.props.children
           )
         )
       ), 
-      React.createElement("a", {href: "#!", "data-activates": "mobile-demo", className: "button-collapse dropdown-button hide-on-large-only", onClick: $(".dropdown-button").dropdown()}, React.createElement("i", {className: "material-icons"}, "menu")), 
-      React.createElement("ul", {className: "dropdown-content", id: "mobile-demo"}, 
-        React.createElement("li", null, React.createElement("a", {href: "#about"}, "About")), 
-        React.createElement("li", null, React.createElement("a", {href: "#habits"}, "My Habits")), 
-        React.createElement("li", null, React.createElement("a", {href: "#challenges"}, "Challenges")), 
-        React.createElement("li", null, React.createElement("a", {href: "#friends"}, "Friends")), 
-        React.createElement("li", null, React.createElement("a", {href: "#home"}, "Logout"))
-      ), 
-      React.createElement("div", {className: "background"}, 
-        React.createElement("div", {className: "container main"}, 
-              this.props.children
+      React.createElement("footer", null, 
+        React.createElement("div", {className: "footer"}, 
+          React.createElement("p", {className: "copyright"}, "Designed and built by Andrea Baty © 2017")
         )
-      ), 
-      React.createElement("div", {className: "footer"}, 
-        React.createElement("p", {className: "copyright"}, "Designed and built by Andrea Baty © 2017")
       )
     )
   )
