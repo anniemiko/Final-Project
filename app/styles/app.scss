@@ -27,6 +27,16 @@ body {
   background-color: #00838f;
   padding: 35px;
 }
+
+.page-flexbox-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+main {
+  flex: 1 0 auto;
+  }
 // ** styling for splash page ** //
 
 .banner{
